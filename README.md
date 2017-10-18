@@ -37,22 +37,23 @@ A collection of linux sysadmin/devops interview questions. Feel free to contribu
 ####[[⬆]](#toc) <a name='general'>General Questions:</a>
 
 * What did you learn yesterday/this week?
-   - How kubernets works, and how to configure a cluster with it.
+   - How kubernets works, and how to configure a cluster with it. (1st time)
+   - This week I was studing about cassandra, and this morning what are the best practices to backup an Aurora instance on aws.
 
 * Talk about your preferred development/administration environment. (OS, Editor, Browsers, Tools etc.)
-  - SO - Linux, editor - atom, Browser- chrome, tools - git,zsh,oh-my-zsh,python,ansible,pac
+  - SO - Linux (arch), editor - vscode (Insiders Version), Browser- chrome, tools - git,zsh,oh-my-zsh,python,ansible,pac, terminator, python3
 
 * Tell me about the last major Linux project you finished.
-  - I finished a ecommerce project using opensource technologies like linux, mongodb, centos, rabbitmq
+  - I just finished a e-commerce project using opensource a lot of nice technologies like centos, java, springcloud, mongodb, centos, rabbitmq, cassandra, kafka+zookeeper, Azure, percona-mysql, NetflixOSS (as API gateway), nodejs.
 
 * Tell me about the biggest mistake you've made in [some recent time period] and how you would do it differently today. What did you learn from this experience?
-  - I created a hornetq cluster, instead of rabbitmq to solve a queue problem.
+  - I started to use docker swarm in production, without test our performance in this environment, when the system received a huge throughtput everything started to break. I learned a lot of stuff about docker, cgroups, and we need to test very very well before put some new product using a new (at that time) tecnology in production.
 
 * Why we must choose you?
-  - Because I have a lot of experience scaling big services, automating boring tasks and all this experience would add in the company
+  - Because I have a lot of experience scaling huge services, learning new tecnologies, automating boring tasks and experience, and cool mind to troubleshoot, solve problems in critical environments.
 
 * What function does DNS play on a network?
-  - Translate IP addresses in names, and provide a load balancer layer.
+  - Translate IP addresses in names, DNS can also provides a load balancer layer using geolocation and so.
 
 * What is HTTP?
   - HTTP (hypertext transport protocol) it's a protocol that defines how messages are formated and transmitted via web, and what actions webservers and browsers should take in response of various commands.
@@ -61,7 +62,7 @@ A collection of linux sysadmin/devops interview questions. Feel free to contribu
   - An HTTP proxy it's a service that forwards http connections, for example a user A want's to access a server www.b.com, but for security reasons the user cannot have direct access on internet, so the user's browser will ask for the http proxy to access the website, the webserver from www.b.com will receive a http message from the proxy and will anwser as usual, but in the http HEADER from the message will have some data about the user A, and the http proxy will forward this answer using this data to the user A browser.
 
 * Describe briefly how HTTPS works.
-  - HTTPS uses the same HTTP protocol but creates a security layer(tunnel) using SSL/TLS, on top of it, this prevents anyone modify or see what's happening inside this tunnel. The SSL handshake is established and after that the tunnel is created and all HTTP responses are send by.  
+  - HTTPS uses the same HTTP protocol but creates a security layer(tunnel) using SSL/TLS, on top of it, this prevents anyone modify or see what's happening inside this tunnel. The SSL handshake is established and after that all HTTP responses are send by.  
 
 * What is SMTP? Give the basic scenario of how a mail message is delivered via SMTP.
   - SMTP ( Simple Mail transport protocol) it's a protocol that works in the application layer, and uses a process called "store and forward", working close with the MTA (Mail Tranfer Agent) and this MTA server send via SMTP a package with the messages, when this message arrives at the destination, the client will use POP3/IMAP to download it.
@@ -70,11 +71,11 @@ A collection of linux sysadmin/devops interview questions. Feel free to contribu
 * What is RAID? What is RAID0, RAID1, RAID5, RAID10?
   - RAID0 - Striping, the data is striped between 2 or more disks, improving speed but compromising availability.
   - RAID1 - Mirroring, the data is mirrored between 2 or more disks, improving availability (the server could lose N - 1 disks) but compromises the speed (replication time).
-  - RAID5 -  Blocks striped but uses distributed parity, RAID5 uses minimum 3 disks, that stripe data between than, but replicates blocks too, it's a good raid for database, read operations are good, but write it's slow.
+  - RAID5 -  Blocks striped but uses distributed parity, RAID5 uses minimum 3 disks, that stripe data between than, but replicates blocks too, it's a good RAID for databases, in this cenario read operations are good, but write can be slow.
   - RAID10 - It's a implementation using RAID0 + RAID1, uses 4 disks, striping data between 2 of then and mirroring this data in another 2 disks.
 
 * What is a level 0 backup? What is an incremental backup?
-  - Level0 backup it's a full backup (all blocks) that after initializes a incremental backup ( only the difference between the blocks)
+  - Level0 backup it's a full backup (all blocks), and  after we can initializes an incremental backup ( only the difference between the blocks)
 
 * Describe the general file system hierarchy of a Linux system.
   - /  - root folder
@@ -98,26 +99,27 @@ A collection of linux sysadmin/devops interview questions. Feel free to contribu
 ####[[⬆]](#toc) <a name='simple'>Simple Linux Questions:</a>
 
 * What is the name and the UID of the administrator user?
-  - 0
+  - root, 0
 
 * How to list all files, including hidden ones, in a directory?
-  - ls -lha
+  - ls -a
 
 * What is the Unix/Linux command to remove a directory and its contents?
-  - rm -Rfv
+  - rm -R
+
 * Which command will show you free/used memory? Does free memory exist on Linux?
-  - free -m
+  - free
   - Sure exists, but the Linux kernel creates file caches with memory ram, so when we see the output from free command, sometimes can show us that we are without memory but this memory is cached by the SO.
 
 * How to search for the string "my konfi is the best" in files of a directory recursively?
-  - grep -Rin "string" /folder
+  - grep -Rin "my konfi is the best" /folder
 
 * How to connect to a remote server or what is SSH?
   - ssh user@server - simple way
   - SSH (secure shell) it's a cryptographic network protocol, used for remote login to computer systems by users.
 
 * How to get all environment variables and how can you use them?
-  - env, set or printenv, will show every variable that login session, we can use setting as variables ex.: TEST=something or using export, with that the variable will be global (can be used by all users)
+  - env, set or printenv, will show every variable that login session, we can use setting as variables ex.: TEST=something or using export the variable will be global (can be used by all system users)
 
 * I get "command not found" when I run ```ifconfig -a```. What can be wrong?
   - your PATH variable doesn't have the full path for the ifconfig command.
@@ -126,7 +128,7 @@ A collection of linux sysadmin/devops interview questions. Feel free to contribu
   -  It depends which program the user is trying to complete
 
 * What command will show the available disk space on the Unix/Linux system?
-  - du -sh
+  - df -h
 
 * What commands do you know that can be used to check DNS records?
   - dig +trace
@@ -149,10 +151,11 @@ A collection of linux sysadmin/devops interview questions. Feel free to contribu
   - +x - User can get into the folder
 
 * How to add a new system user without login permissions?
-  - adduser
+  - useradd username -s /bin/false
 
 * How to add/remove a group from a user?
-  - usermod
+  - usermod -a -G groupname username #to add a user in a new group
+  - usermod -G [all groups that you want the user into] username #You don't remove the user from a group, you all the user in all groups that this user is suppose to be.
 
 * What is a bash alias?
   - It's a shortcut for some bash command
@@ -177,11 +180,11 @@ A collection of linux sysadmin/devops interview questions. Feel free to contribu
   - 2>&1 redirect STDERR to STDOUT
 
 * What is the difference between UNIX and Linux.
-  - Linux it's a UNIX clone using the same POSIX(Portable Operating System Interface) standards, but UNIX it's a brand.
+  - Linux it's a UNIX clone using the same POSIX(Portable Operating System Interface) standards, but UNIX it's a brand, has different copyrights and tools.
 
 * What is the difference between Telnet and SSH?
   - SSH it's encripted and telnet isn't.
-  - Telnet can omit authentication
+  - Telnet can ommit authentication
   - SSH adds overhead to the bandwidth
 
 * Explain the three load averages and what do they indicate. What command can be used to view the load averages?
@@ -196,18 +199,21 @@ A collection of linux sysadmin/devops interview questions. Feel free to contribu
 * What do the following commands do and how would you use them?
  * ```tee```
   - copies the STDOUT to a file, and continuous showing the STDOUT.
+
  * ```awk```
   - awk it's a programming language designed for text processing.
+
  * ```tr```
    - tr or translate, it's a command to substitute characters.
 
  * ```cut```
    - cut is a command for text processing, and extracts portion of a text
+
  * ```tac```
   - tac it's a reverse cat, pritting the file bottom to up.
 
  * ```curl```
-  - curl or cURL is a tool to transfer data from or to a server, using one of the supported  protocols.
+  - curl or cURL is a tool to transfer data from or to a server, using one of the supported protocols. cURL can be called a CLI browser, you can user authentication, change the HEADER, and do a lot of stuffs with it.
 
  * ```wget```
   - wget is a tool for retrieving files using HTTP, HTTPS or FTP.
@@ -245,23 +251,25 @@ A collection of linux sysadmin/devops interview questions. Feel free to contribu
   - Yes.
   - PRT record stands for pointer record  and maps a IPV4 address to a CNAME
   - NS record stands for name server and indicates with name server is authoritative for the domain
-  - SOA record stands for State of Authority and is easily  one of the most important DNS records because stores information like whe the domain was last updated.
+  - SOA record stands for State of Authority and is easily  one of the most important DNS records because stores information like when the domain was last updated.
 
 * What is a Split-Horizon DNS?
   - It's the hability of the DNS answer a different answer to a query based on the source of the query. A common use it's when the DNS server for internal and external queries.
    We can use views to configure this.
 
 * What is the sticky bit?
-  - It's a permission bit that is set on a file or a directory  that lets only the owner of the file/directory or the root user  to delete or rename the file.
+  - It's a permission bit that is set on a file or a directory  that lets only the owner of the file/directory or the root user to delete or rename the file.
 
 * What does the immutable bit do to a file?
   - It makes the file immutable, any user can change the state of the file or create hard links.
 
 * What is the difference between hardlinks and symlinks? What happens when you remove the source to a symlink/hardlink?
-  - A hardlink points to the same inode as the original file, so if a user delete a hardlink or a original file will be OK, a softlink it's a shorcut.
+  - All files in the linux filesystem it's a link to a inode, a hard link it's a new link to the same inode (if you remove or rename the old or the new link, the file will be intact, but any change in the data on the inode is reflected in all files that refer to that inode), the file system will only delete the inode if you don't have any link for this inode. Because of that a hardlink on works in files in the same file system.
+
+  - A softlink, it's a link that points the link from the inode, so it's a link from a link if the first link change the name or be deleted, the soft link will break, but you can use between differents filesystems.
 
 * What is an inode and what fields are stored in an inode?
-  - Each object in the filesystem is represented by a inode that stores all the information about the file, like file type, permissions, owner, group, file size, file access, change and modification time (never birth time), file deletion time, number of links, extended attributes. Each inode has a unique number
+  - Each object in the filesystem is represented by a inode that stores all the information about the file, like file type, permissions, owner, group, file size, file access, change and modification time (never birth time), file deletion time, number of links, extended attributes. Each inode has a unique number and you can see all this information using ``` stat filename ``` 
 
 * How to force/trigger a file system check on next reboot?
   - Create a file named forcefsck in the root folder
@@ -279,9 +287,10 @@ A collection of linux sysadmin/devops interview questions. Feel free to contribu
   - Local port forwading creates a tunnel between a local server and a local client, a remote port uses a local server but with internet ip address to connect a internal service that doesn't have access in the internet.
 
 * What are the steps to add a user to a system without using useradd/adduser?
-  - useradd name
-  - adduser name
-  - The difference it's useradd will only create a user, and adduser will ask a lot of information like passwords, names and etc.
+  - Edit /etc/passwd with the new username, configure the home, and shell
+  - Edit /etc/groups add this new username to some groups
+  - Create the user home folder and set the right permissions
+  - Reset the user password with passwd username
 
 * What is MAJOR and MINOR numbers of special files?
   - The MAJOR number will set to the kernel with kind of device it is, and MINOR number will set a special characteristics of the device, example if a machine have 2 disks, the MAJOR number will be the same for both, but the MINOR doesn't.
@@ -299,7 +308,7 @@ A collection of linux sysadmin/devops interview questions. Feel free to contribu
   - the ps command read files from /proc and the content of this files are generated by the kernel.
 
 * What happens to a child process that dies and has no parent process to wait for it and what’s bad about this?
-  - creates a zombie process, one zombie process it's not a big problem, but each process used a little size of ram, and uses a PID that's a finite number of.
+  - creates a zombie process, one zombie process it's not a big problem, but each process uses a little size of ram, and uses a PID that's a finite number of it.
 
 * Explain briefly each one of the process states.
   - Created or new state, in this moment the process wait the admission to the ready state, by the scheduler
@@ -309,10 +318,10 @@ A collection of linux sysadmin/devops interview questions. Feel free to contribu
   - Terminated it's a state after completing the execution or being explicitly killed, but the process remain as zombie until the parent  process call  the wait system call to read its exit status, and finally ending the process lifetime.
 
 * How to know which process listens on a specific port?
-  - lsof -i process or netstat -p
+  - lsof -i :PORT or netstat -lap | grep port
 
 * What is a zombie process and what could be the cause of it?
-  - Each process when ended enter in zombie state, waiting for the parent process call a wait call and read the exit status, if this wait call will be never called, this process will be as a zombie to end we need to call a SIGCHLD to the parent process to kill all child process.
+  - Each process when ended enter in zombie state, waiting for the parent process call a wait call and read the exit status, if this wait call never be called, this process will be a zombie to end, and we will need to call a SIGCHLD to the parent process to kill all child process.
 
 * You run a bash script and you want to see its output on your terminal and save it to a file at the same time. How could you do it?
  - Use the tee command
@@ -327,7 +336,7 @@ A collection of linux sysadmin/devops interview questions. Feel free to contribu
   - Get the crt from the certificate provider with the CA chain and configure in the webserver.
 
 * Can you have several HTTPS virtual hosts sharing the same IP?
-  - Yes using virtualhosts
+  - Yes using virtualhosts, but the client needs to support http/1.1, to use name-based virtual host configuration.
 
 * What is a wildcard certificate?
   - It's a certificate that can be used by various hosts from a single domain.
@@ -347,10 +356,10 @@ A collection of linux sysadmin/devops interview questions. Feel free to contribu
   - Both child and parent process have different PIDs, neither process access the variables of each other, the child process ctime, uptime, stime, cutime and cstime subrotines  are set to 0.
 
 * What is the difference between exec and fork?
-  - A fork in a simple way it's a copy from the process changing pid, and resource limits, a exec it's a call that basically replaces the entire current process  with a new program. It  loads the program  into the current process space  and runs  it from  the entry point. Example when we call the find command, our bash forks itself, and uses exec to call the find program.  
+  - A fork in a simple way it's a copy from a process changing the pid, and resource limits, a exec it's a call that basically replaces the entire current process  with a new program. It loads the program into the current process space and runs it from the entry point. Example, when we call the find command, our bash forks itself, and in this new fork context, uses exec call to execute the find program.  
 
 * What is "nohup" used for?
-  - It's used to create process that are independent from user login, starting a process with nohup it's telling the process to ignode SIGHUP calls, that the signal sent by the kernel when the parent  shell is closed.
+  - It's used to create process that are independent from user login, starting a process with nohup it's telling the process to ignode SIGHUP calls, that the signal sent by the kernel when the parent shell is closed.
 
 * What is the difference between these two commands?
  * ```myvar=hello```
@@ -358,13 +367,13 @@ A collection of linux sysadmin/devops interview questions. Feel free to contribu
  - The first one create the variable only in the user context, the second in a global context, so this variable can be used by all users.
 
 * How many NTP servers would you configure in your local ntp.conf?
-  - 4 it's recommended minimum by RedHat
+  - 4 it's minimum recommended by RedHat
 
 * What does the column 'reach' mean in ```ntpq -p``` output?
   - It's a octal number, that show the last 8 transactions with the ntp server, this number is a FIFO log, so if same packet doesn't arrive (it's UDP), this number can be different based in the order of the checks.
 
 * You need to upgrade kernel at 100-1000 servers, how you would do this?
-  - Using ansible -m command, but after I will test in some group to see if something bad happen.
+  - I will use ansible , but before I will test in some group to see if something bad happen.
 
 * How can you get Host, Channel, ID, LUN of SCSI disk?
   - cat /proc/scsi/scsi
@@ -379,7 +388,7 @@ A collection of linux sysadmin/devops interview questions. Feel free to contribu
   - I use zsh, it's bash compliance
 
 * What is a tarpipe (or, how would you go about copying everything, including hardlinks and special files, from one server to another)?
-  - It's a way to copy a directory to a server from another preserving permissions and the files, usually I don't copy files from a serve to another, I use automation to do this job for me, if I need to copy, we can use a tarpipe, or dd or rsync.
+  - It's a way to copy a directory to a server from another preserving permissions and the files, usually I don't copy files from a server to another, I use automation to do this job for me, if I really need to copy, we can use a tarpipe, or dd or rsync.
 
 ####[[⬆]](#toc) <a name='hard'>Hard Linux Questions:</a>
 
@@ -388,15 +397,20 @@ A collection of linux sysadmin/devops interview questions. Feel free to contribu
 
 * What is the difference between IDS and IPS?
   - IDS detect the problem inspecting the packet header and payload and create a log.
-  - IPS detect the problem inspecting the packet header and payload and drop the packet if finds something problematic.
+  - IPS detect the problem inspecting the packet header and payload and drop the packet if finds something problematic, based in some pre made rules.
 
 * What shortcuts do you use on a regular basis?
   - ai package - sudo aptitude install package
   - ll - ls -lha
   - gitcm - git commit -m
+  - gl - git pull
+  - gp - git push
+  - .. - cd ..
+  - ... - cd ../..
+  - .... - cd ../../../
 
 * What is the Linux Standard Base?
-  - It's a joint project projected by several Linux distributions under  the organizational structure of the Linux Foundation to standardize the sofware system structure, including filesystem hierarchy.
+  - It's a joint project projected by several Linux distributions under the organizational structure of the Linux Foundation to standardize the sofware system structure, including filesystem hierarchy.
 
 * What is an atomic operation?
   - Atomic operations are program operations that run completly independently of any other process.
