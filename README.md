@@ -37,29 +37,29 @@ A collection of linux sysadmin/devops interview questions. Feel free to contribu
 ####[[⬆]](#toc) <a name='general'>General Questions:</a>
 
 * What did you learn yesterday/this week?
-   - How kubernets works, and how to configure a cluster with it. (1st time)
-   - This week I was studing about cassandra, and this morning what are the best practices to backup an Aurora instance on aws.
+   - CircleCI 2.0 workflow, integrating with packer, and ansible to build imutable infrastructure pipeline.
 
 * Talk about your preferred development/administration environment. (OS, Editor, Browsers, Tools etc.)
-  - SO - Linux (arch), editor - vscode (Insiders Version), Browser- chrome, tools - git,zsh,oh-my-zsh,python,ansible,pac, terminator, python3
+  - SO - Linux (Arch Linux)
+    editor - vscode, Browser- chrome, tools - git, zsh, oh-my-zsh, python, ansible, terminator, packer, meld, git
 
 * Tell me about the last major Linux project you finished.
-  - I just finished a e-commerce project using opensource a lot of nice technologies like centos, java, springcloud, mongodb, centos, rabbitmq, cassandra, kafka+zookeeper, Azure, percona-mysql, NetflixOSS (as API gateway), nodejs.
+  - I just finished a e-commerce project using opensource tools like centos, java, springcloud, mongodb, centos, rabbitmq, cassandra, kafka+zookeeper, Azure, percona-mysql, NetflixOSS (as API gateway), nodejs.
 
 * Tell me about the biggest mistake you've made in [some recent time period] and how you would do it differently today. What did you learn from this experience?
-  - I started to use docker swarm in production, without test our performance in this environment, when the system received a huge throughtput everything started to break. I learned a lot of stuff about docker, cgroups, and we need to test very very well before put some new product using a new (at that time) tecnology in production.
+  - I was suppose toto use docker swarm in production, but we didn't test our performance in this new environment, when the system received a huge throughtput everything started to break. At this time I had to migrate very fast back to IAAS, and I learned a lot of stuff about docker, cgroups, and why we always need to test before put something in production. 
 
 * Why we must choose you?
-  - Because I have a lot of experience scaling huge services, learning new tecnologies, automating boring tasks and experience, and cool mind to troubleshoot, solve problems in critical environments.
+  - I have a lot of experience, with different environment, different size of companies, with that I have a huge experience scalling services, learning new tecnologies, automating boring tasks, and a cool mind to troubleshoot, solve problems in critical environments.
 
 * What function does DNS play on a network?
-  - Translate IP addresses in names, DNS can also provides a load balancer layer using geolocation and so.
+  - Translate IP addresses into names, DNS can also provides a load balancer layer using geolocation and so.
 
 * What is HTTP?
   - HTTP (hypertext transport protocol) it's a protocol that defines how messages are formated and transmitted via web, and what actions webservers and browsers should take in response of various commands.
 
 * What is an HTTP proxy and how does it work?
-  - An HTTP proxy it's a service that forwards http connections, for example a user A want's to access a server www.b.com, but for security reasons the user cannot have direct access on internet, so the user's browser will ask for the http proxy to access the website, the webserver from www.b.com will receive a http message from the proxy and will anwser as usual, but in the http HEADER from the message will have some data about the user A, and the http proxy will forward this answer using this data to the user A browser.
+  - An HTTP proxy it's a service that forwards http connections, for example a user A want's to access a server www.b.com, but for security reasons the user cannot have direct access on internet, so the user's browser will ask for the http proxy to access the website, the webserver from www.b.com will receive a http message from the proxy and will anwser as usual, but in the http HEADER from the message will be changed by the http proxy server who will add or change some headers like User-Agent, X-Forwarded-For and so.
 
 * Describe briefly how HTTPS works.
   - HTTPS uses the same HTTP protocol but creates a security layer(tunnel) using SSL/TLS, on top of it, this prevents anyone modify or see what's happening inside this tunnel. The SSL handshake is established and after that all HTTP responses are send by.  
