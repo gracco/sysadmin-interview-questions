@@ -41,25 +41,29 @@ A collection of linux sysadmin/devops interview questions. Feel free to contribu
 
 * Talk about your preferred development/administration environment. (OS, Editor, Browsers, Tools etc.)
   - SO - Linux (Arch Linux)
-    editor - vscode, Browser- chrome, tools - git, zsh, oh-my-zsh, python, ansible, terminator, packer, meld, git
+    editor - vscode
+    Browser- chromium/firefox 
+    tools - git, zsh, oh-my-zsh, python, ansible, terminator, packer, meld, git, helm, kubectl, aws tools
+    distro - Arch (l)
+    environment - i3wm
 
 * Tell me about the last major Linux project you finished.
   - I just finished a e-commerce project using opensource tools like centos, java, springcloud, mongodb, centos, rabbitmq, cassandra, kafka+zookeeper, Azure, percona-mysql, NetflixOSS (as API gateway), nodejs.
 
 * Tell me about the biggest mistake you've made in [some recent time period] and how you would do it differently today. What did you learn from this experience?
-  - I was suppose toto use docker swarm in production, but we didn't test our performance in this new environment, when the system received a huge throughtput everything started to break. At this time I had to migrate very fast back to IAAS, and I learned a lot of stuff about docker, cgroups, and why we always need to test before put something in production. 
+  - I was suppose to use docker swarm in production, but we didn't test our performance in this new environment, when the system received a huge throughtput everything started to break. At this time I had to migrate very fast back to IAAS, and I learned a lot of stuff about docker, cgroups, and why we always need to test before put something in production. 
 
 * Why we must choose you?
-  - I have a lot of experience, with different environment, different size of companies, with that I have a huge experience scalling services, learning new tecnologies, automating boring tasks, and a cool mind to troubleshoot, solve problems in critical environments.
+  - I have a lot of experience, with different environments, different size of companies, with that I have a huge experience scalling services, learning new tecnologies, automating boring tasks, and a cool mind to troubleshoot and solve problems in critical environments.
 
 * What function does DNS play on a network?
-  - Translate IP addresses into names, DNS can also provides a load balancer layer using geolocation and so.
+  - It's on the core for any serious environment, resposible to translate IP addresses into names, DNS can also provides a load balancer layer using geolocation, service discovery using SRV entry and a lot of others features.
 
 * What is HTTP?
   - HTTP (hypertext transport protocol) it's a protocol that defines how messages are formated and transmitted via web, and what actions webservers and browsers should take in response of various commands.
 
 * What is an HTTP proxy and how does it work?
-  - An HTTP proxy it's a service that forwards http connections, for example a user A want's to access a server www.b.com, but for security reasons the user cannot have direct access on internet, so the user's browser will ask for the http proxy to access the website, the webserver from www.b.com will receive a http message from the proxy and will anwser as usual, but in the http HEADER from the message will be changed by the http proxy server who will add or change some headers like User-Agent, X-Forwarded-For and so.
+  - An HTTP proxy it's a service that forwards http connections, for example a user A want's to access a server www.b.com, but for security reasons the user cannot have direct access on internet, so the user's browser will ask for the http proxy to access the website, the webserver from www.b.com will receive a http message from the proxy and will anwser as usual, but in the http HEADER from the message will be changed by the http proxy server who will add or change some headers like User-Agent, X-Forwarded-For, used a lot for companies who had to control their users Internet access.
 
 * Describe briefly how HTTPS works.
   - HTTPS uses the same HTTP protocol but creates a security layer(tunnel) using SSL/TLS, on top of it, this prevents anyone modify or see what's happening inside this tunnel and ensure the client it's communicating with the right server. The SSL handshake is established and after that all HTTP responses are send by.  
@@ -69,13 +73,14 @@ A collection of linux sysadmin/devops interview questions. Feel free to contribu
 
 
 * What is RAID? What is RAID0, RAID1, RAID5, RAID10?
+  RAID (Redundant Array of Independent Disks) it' s a data storage virtualization technology that combines multiple physical disks in one logical volume.
   - RAID0 - Striping, the data is striped between 2 or more disks, improving speed but compromising availability.
   - RAID1 - Mirroring, the data is mirrored between 2 or more disks, improving availability (the server could lose N - 1 disks) but compromises the speed (replication time).
   - RAID5 -  Blocks striped but uses distributed parity, RAID5 uses minimum 3 disks, that stripe data between than, but replicates blocks too, it's a good RAID for databases, in this cenario read operations are good, but write can be slow.
   - RAID10 - It's a implementation using RAID0 + RAID1, uses 4 disks, striping data between 2 of then and mirroring this data in another 2 disks.
 
 * What is a level 0 backup? What is an incremental backup?
-  - Level0 backup it's a full backup (all blocks), and  after we can initializes an incremental backup ( only the difference between the blocks)
+  - Level0 backup it's a full backup (all blocks), an after a level 0 backup, we can initializes an incremental backup rotine ( only the difference between the blocks)
 
 * Describe the general file system hierarchy of a Linux system.
   - /  - root folder
@@ -102,7 +107,7 @@ A collection of linux sysadmin/devops interview questions. Feel free to contribu
   - root, 0
 
 * How to list all files, including hidden ones, in a directory?
-  - ls -a
+  - ls -a or find .
 
 * What is the Unix/Linux command to remove a directory and its contents?
   - rm -R
@@ -155,7 +160,7 @@ A collection of linux sysadmin/devops interview questions. Feel free to contribu
 
 * How to add/remove a group from a user?
   - usermod -a -G groupname username #to add a user in a new group
-  - usermod -G [all groups that you want the user into] username #You don't remove the user from a group, you all the user in all groups that this user is suppose to be.
+  - usermod -G [all groups that you want the user into] username #You don't remove the user from a group, you add the user in all groups that this user is suppose to be.
 
 * What is a bash alias?
   - It's a shortcut for some bash command
@@ -169,6 +174,7 @@ A collection of linux sysadmin/devops interview questions. Feel free to contribu
 
 * What is in /etc/services?
   - A mapping for services and ports, when a service call a function getportbyname() usually this function goes in this file to check.
+  - Example the command netstat or ss without the -n parameter
 
 * How to redirect STDOUT and STDERR in bash? (> /dev/null 2>&1)
   - 1> redirect the STDOUT
@@ -180,7 +186,7 @@ A collection of linux sysadmin/devops interview questions. Feel free to contribu
   - 2>&1 redirect STDERR to STDOUT
 
 * What is the difference between UNIX and Linux.
-  - Linux it's a UNIX clone using the same POSIX(Portable Operating System Interface) standards, but UNIX it's a brand, has different copyrights and tools.
+  - Linux it's a UNIX "clone" using the same POSIX(Portable Operating System Interface) standards, but UNIX it's a brand, has different copyrights and tools.
 
 * What is the difference between Telnet and SSH?
   - SSH it's encripted and telnet isn't.
@@ -198,7 +204,7 @@ A collection of linux sysadmin/devops interview questions. Feel free to contribu
 
 * What do the following commands do and how would you use them?
  * ```tee```
-  - copies the STDOUT to a file, and continue to show the STDOUT.
+  - copies the STDOUT to a file, but continues to show the STDOUT.
 
  * ```awk```
   - awk it's a programming language designed for text processing.
@@ -234,13 +240,13 @@ A collection of linux sysadmin/devops interview questions. Feel free to contribu
   - disown control jobs that are running in the system.
 
 * What is a packet filter and how does it work?
-  - Packet filter it's the process of passing or blocking packets at a network interface based on source  and destination address, port or protocols. The packet filter examines, the header of every packet who passed through and based in the rules, ACCEPT, DROP or REJECT the packet.
+  - Packet filter it's the process of passing or blocking packets at a network interface based on source and destination address, port or protocols. The packet filter examines, the header of every packet who passed through and based in the rules, ACCEPT, DROP or REJECT the packet, it's well know as firewall.
 
 * What is Virtual Memory?
   - Virtual memory it's the amount of memory available for the system, physical memory + swap memory (hard disk memory).
 
 * What is swap and what is it used for?
-  - Swap it's a disk partition used by the Linux when the physical memory is full, if the system needs more memory resources some inactive pages are copied to swap.
+  - Swap it's a disk partition used by the Linux when the physical memory is full, if the system needs more memory resources some inactive pages are copied to swap, it was a common way to increase the computer/server memory using the disk.
 
 * What is an A record, an NS record, a PTR record, a CNAME record, an MX record?
   - A record stands for address, indicates a IP address for a domain
@@ -252,6 +258,7 @@ A collection of linux sysadmin/devops interview questions. Feel free to contribu
   - PRT record stands for pointer record  and maps a IPV4 address to a CNAME
   - NS record stands for name server and indicates with name server is authoritative for the domain
   - SOA record stands for State of Authority and is easily  one of the most important DNS records because stores information like when the domain was last updated.
+  - SRV record stands for Service Record, is a record that specifies hostname and port number for a specific service.
 
 * What is a Split-Horizon DNS?
   - It's the hability of the DNS answer a different answer to a query based on the source of the query. A common use it's when the DNS server for internal and external queries.
@@ -334,13 +341,13 @@ A collection of linux sysadmin/devops interview questions. Feel free to contribu
   - Create a key file
   - Uses this key file to create a csr file
   - Send this csr file to a ssl certificate provider
-  - Get the crt from the certificate provider with the CA chain and configure into the webserver.
+  - Get the crt from the certificate provider with the CA chain and configure into the webserver
 
 * Can you have several HTTPS virtual hosts sharing the same IP?
   - Yes using virtualhosts, but the client needs to support http/1.1, to use name-based virtual host configuration.
 
 * What is a wildcard certificate?
-  - It's a certificate that can be used by various hosts from a single domain.
+  - It's a certificate that can be used by differents hostnames from a single domain.
 
 * Which Linux file types do you know?
   - Regular file
@@ -353,7 +360,7 @@ A collection of linux sysadmin/devops interview questions. Feel free to contribu
     - socket file
 
 * What is the difference between a process and a thread? And parent and child processes after a fork system call?
-  - A fork it's identical process as the parent but with new PID, it has a own memory share, and runs independently from the parent. A thread it's a light weight process and usually it's just a CPU state  with the process  containing  the remains. Threads require less overhead then forking or spawning a new process, because doesn't have  a new system virtual memory space and environment.
+  - A fork it's identical process as the parent but with new PID, it has a own memory share, and runs independently from the parent. A thread it's a lightweight process and usually it's just a CPU state with the process containing the remainings. A threads require less overhead then forking or spawning a new process, because doesn't have a new system virtual memory space and environment.
   - Both child and parent process have different PIDs, neither process access the variables of each other, the child process ctime, uptime, stime, cutime and cstime subrotines are set to 0.
 
 * What is the difference between exec and fork?
@@ -374,7 +381,7 @@ A collection of linux sysadmin/devops interview questions. Feel free to contribu
   - It's a octal number, that show the last 8 transactions with the ntp server, this number is a FIFO log, so if same packet doesn't arrive (it's UDP), this number can be different based in the order of the checks.
 
 * You need to upgrade kernel at 100-1000 servers, how you would do this?
-  - I will use ansible, but before I will test in some group to see if something bad happen.
+  - I will use ansible, but before I will test in some controled group to see if something bad can happen.
 
 * How can you get Host, Channel, ID, LUN of SCSI disk?
   - cat /proc/scsi/scsi
@@ -386,10 +393,10 @@ A collection of linux sysadmin/devops interview questions. Feel free to contribu
   - sed -e 's/^x/^y/g'
 
 * Do you know of any alternative shells? If so, have you used any?
-  - I use zsh, it's bash compliance
+  - I use zsh, it's 100% bash compatible
 
 * What is a tarpipe (or, how would you go about copying everything, including hardlinks and special files, from one server to another)?
-  - It's a way to copy a directory to a server from another preserving permissions and the files, usually I don't copy files from a server to another, I use automation to do this job for me, if I really need to copy, we can use a tarpipe, or dd.
+  - It's a way to copy a directory to a server from another preserving permissions and the files, usually I don't copy files from a server to another, I use automation to do the job to recreate the server for me, but if I really need to copy, we could use a tarpipe, or dd.
 
 ####[[⬆]](#toc) <a name='hard'>Hard Linux Questions:</a>
 
@@ -398,7 +405,7 @@ A collection of linux sysadmin/devops interview questions. Feel free to contribu
 
 * What is the difference between IDS and IPS?
   - IDS detect the problem inspecting the packet header and payload and create a log.
-  - IPS detect the problem inspecting the packet header and payload and drop the packet if finds something problematic, based in some pre made rules.
+  - IPS detect the problem inspecting the packet header and payload and drop the packet if finds something problematic, based in some pre defined rules.
 
 * What shortcuts do you use on a regular basis?
   - ai package - sudo aptitude install package
@@ -423,7 +430,7 @@ A collection of linux sysadmin/devops interview questions. Feel free to contribu
   - Public keys, they are used to authenticate users in the server.
 
 * I've added my public ssh key into authorized_keys but I'm still getting a password prompt, what can be wrong?
-  - The permission for authorized_keys file, and .ssh folder, as the path from authorized_keys file needs to be /home/user/.ssh/authorized_keys and right spelled.
+  - The permission for authorized_keys file, and .ssh folder, as the path from authorized_keys file needs to be /home/user/.ssh/authorized_keys and right spelled, or your private key has the wrong permission.
 
 * Did you ever create RPM's, DEB's or solaris pkg's?
   - yes using fpm, and using dpkg or rpm.
@@ -446,7 +453,7 @@ A collection of linux sysadmin/devops interview questions. Feel free to contribu
   - bootloader
     - The bootloader (GRUB2) present options to the user select, and loads the kernel into memory and supplies it with some parameters.
   - kernel
-    - The kernel will decompressed itself and will setup essential hardware and memory paging, and calls start_kernel() function, with will perform the majority of system setups like device and driver initialization, scheduler, idle process and then starts separately in the user space the init process (pid 1).
+    - The kernel will decompressed itself and will setup essential hardware and memory paging, and calls start_kernel() function, and it will perform the majority of system setups like device and driver initialization, scheduler, idle process and then starts separately in the user space the init process (pid 1).
   - init
     -The init it's scripts executed by shell (sysV, runit) or configuration files that are executed by binaries (upstart, systemd), init has specific levels, that are passed as variable at the call, with consists of specifics set of daemons. These will provide various non-operating system services and structures and form the user environment.
   - User enviroment
@@ -454,13 +461,13 @@ A collection of linux sysadmin/devops interview questions. Feel free to contribu
   To shudown, it's the inverse, the kernel kills every process, and shut itself down.
 
 * What's a chroot jail?
-  - Chroot jail it's a way to isolate  a process and its children from the rest of the system. The idea is that you create a directory tree where you copy or link in all the system files needed for a process to run, usually we use bind to mount some folder inside a chroot.
+  - Chroot jail it's a way to isolate a process and its children from the rest of the system. The idea is that you create a directory tree where you copy or link in all the system files needed for a process to run, usually we use bind to mount some folder inside a chroot.
 
 * When trying to umount a directory it says it's busy, how to find out which PID holds the directory?
   - lsof directory
 
 * What's LD_PRELOAD and when it's used?
-  - LD_PRELOAD it's a variable that can be used to load some library before the default C library, can be used to test a new version for a library, or  development proposes.
+  - LD_PRELOAD it's a variable that can be used to load some library before the default C library, can be used to test a new version for a library, or for development proposes.
 
 * You ran a binary and nothing happened. How would you debug this?
   - strace binary, and see what's happening.
@@ -478,10 +485,10 @@ A collection of linux sysadmin/devops interview questions. Feel free to contribu
 ####[[⬆]](#toc) <a name='network'>Networking Questions:</a>
 
 * What is localhost and why would ```ping localhost``` fail?
-  - Localhost it's the internal interface in Linux, that some programs can use to talk to each other inside a server. The ping will fail if the lo interface is down, or if we don't resolve localhost in our /etc/hosts file or some firewall rule it's enabled.
+  - Localhost it's the internal interface in Linux, that some programs can use to talk to each other inside the server. The ping will fail if the lo interface is down, or if we don't resolve localhost in our /etc/hosts file or some firewall rule it's enabled disabling ICMP.
 
 * What is the similarity between "ping" & "traceroute" ? How is traceroute able to find the hops.
-  - Both uses ICMP packets to archive their proposes, but traceroute sends the packets gradually increasing the TTL value, starting with TTL 1. The first router  receives the packet, decrements the TTL value and drops the packet because the TTL has zero. The router sends an ICMP Time Exceeded message back to the source.
+  - Both uses ICMP (Internet control message protocol) packets to archive their proposes, but traceroute sends the packets gradually increasing the TTL value, starting with TTL 1. The first router  receives the packet, decrements the TTL value and drops the packet because the TTL has zero. The router sends an ICMP Time Exceeded message back to the source.
 
 
 * What is the command used to show all open ports and/or socket connections on a machine?
@@ -531,7 +538,7 @@ A collection of linux sysadmin/devops interview questions. Feel free to contribu
   - can be a firewall rule
 
 * What is SNAT and when should it be used?
-  - SNAT stands for Source Network Address Translation - changes the source address  in IP header of a packet. The typical usage is to change the private address/port to a public address/port for packets leaving the network.
+  - SNAT stands for Source Network Address Translation - changes the source address in IP header of a packet. The typical usage is to change the private address/port to a public address/port for packets leaving the network.
 
 * Explain how could you ssh login into a Linux system that DROPs all new incoming packets using a SSH tunnel.
   - We could login using some DRAC interface if the machine it's physical, or we can use the libvirt, or vmware console if virtual, or aws console.
@@ -580,10 +587,10 @@ A collection of linux sysadmin/devops interview questions. Feel free to contribu
   - readelf -d /fullpath/command
 
 * What is Automake and Autoconf?
-  - They are programming tools to automate  parts of the compilation process.
+  - They are programming tools to automate parts of the compilation process.
 
 * ./configure shows an error that libfoobar is missing on your system, how could you fix this, what could be wrong?
-  - Installing the dev or devel version of the lib
+  - Installing the dev or devel version of the lib, that will contain the source code to be compiled 
 
 * What are the advantages/disadvantages of script vs compiled program?
   - Scripts are easy to correct and see how works, compiled are much faster
@@ -606,20 +613,20 @@ A collection of linux sysadmin/devops interview questions. Feel free to contribu
   - network issues, or some fsck it's running, or some service locked the startup.
 
 * If you were stuck on a desert island with only 5 command-line utilities, which would you choose?
-  - lsof, vim, kill, cd, ls
+  - cd, vim, cat, awk, find
 
 * You come across a random computer and it appears to be a command console for the universe. What is the first thing you type?
   - lshw
 
 * Tell me about a creative way that you've used SSH?
   - a for loop to send via ssh a command to 50 vms.
-  - to connect in a internal gitlab, using a IPSec VPN connected in a bastion host.
+  - to connect in a internal network gitlab, using a IPSec VPN connected in a bastion host.
 
 * You have deleted by error a running script, what could you do to restore it?
-  - Yes, we copy the file descriptor from the /proc/PID/fd/number_of_file_descriptor into a new file.
+  - I could copy the file descriptor from the /proc/PID/fd/number_of_file_descriptor into a new file.
 
 * What will happen on 19 January 2038?
-  - The standard time libray from C was developed using 4-byte to storage time and 4-byte integer its, a 2 trillion number, that in seconds, translates to January 2038, in that time some mainframes could be have some issue.
+  - The standard time libray from C was developed using 4-byte to storage time and 4-byte integer its, a 2 trillion number, that in seconds, translates to January 2038, in that time some mainframes could be have some issue, openbsd is already ready.
 
 
 ####[[⬆]](#toc) <a name='demo'>Demo Time:</a>
@@ -655,7 +662,7 @@ A collection of linux sysadmin/devops interview questions. Feel free to contribu
  - sort  will sort, first numbers than characters
  - uniq will merge equal entries
  - wc -l will count the amount of lines and print the number
- - >> Activity.log will save this command appending in the file Acctivity.log
+ - >> Activity.log will save this command appending in the file Activity.log
 
 * Write a script to list all the differences between two directories.
 
