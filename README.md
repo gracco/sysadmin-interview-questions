@@ -43,15 +43,15 @@ A collection of linux sysadmin/devops interview questions. Feel free to contribu
   - SO - Linux (Arch Linux)
     editor - vscode
     Browser- chromium/firefox 
-    tools - git, zsh, oh-my-zsh, python, ansible, terminator, packer, meld, git, helm, kubectl, aws tools
-    distro - Arch (l)
+    tools - git, zsh, oh-my-zsh, python, ansible, terminator, packer, meld, git, helm, kubectl, aws tools, kubetail, eksctl
+    distro - Arch (L)
     environment - i3wm
 
 * Tell me about the last major Linux project you finished.
-  - I just finished a e-commerce project using opensource tools like centos, java, springcloud, mongodb, centos, rabbitmq, cassandra, kafka+zookeeper, Azure, percona-mysql, NetflixOSS (as API gateway), nodejs.
+  - My major project in life it was e-commerce migration/implementation project using opensource tools like centos, java, springcloud, mongodb, centos, rabbitmq, cassandra, kafka+zookeeper, Azure, percona-mysql, NetflixOSS (as API gateway), nodejs, took 2 years to complete, I joined since the very beginning.
 
 * Tell me about the biggest mistake you've made in [some recent time period] and how you would do it differently today. What did you learn from this experience?
-  - I was suppose to use docker swarm in production, but we didn't test our performance in this new environment, when the system received a huge throughtput everything started to break. At this time I had to migrate very fast back to IAAS, and I learned a lot of stuff about docker, cgroups, and why we always need to test before put something in production. 
+  - I was suppose to use docker swarm in production, but we didn't test our performance in this new environment/tool, when the system received a huge throughtput everything started to break. At this time I had to migrate very fast back to IAAS, and I learned a lot of stuff about docker, cgroups, and why we always need to test before put something in production. 
 
 * Why we must choose you?
   - I have a lot of experience, with different environments, different size of companies, with that I have a huge experience scalling services, learning new tecnologies, automating boring tasks, and a cool mind to troubleshoot and solve problems in critical environments.
@@ -63,7 +63,7 @@ A collection of linux sysadmin/devops interview questions. Feel free to contribu
   - HTTP (hypertext transport protocol) it's a protocol that defines how messages are formated and transmitted via web, and what actions webservers and browsers should take in response of various commands.
 
 * What is an HTTP proxy and how does it work?
-  - An HTTP proxy it's a service that forwards http connections, for example a user A want's to access a server www.b.com, but for security reasons the user cannot have direct access on internet, so the user's browser will ask for the http proxy to access the website, the webserver from www.b.com will receive a http message from the proxy and will anwser as usual, but in the http HEADER from the message will be changed by the http proxy server who will add or change some headers like User-Agent, X-Forwarded-For, used a lot for companies who had to control their users Internet access.
+  - An HTTP proxy it's a service that forwards http connections, for example a user A want's to access a server www.b.com, but for security reasons the user cannot have direct access on internet, so the user's browser will ask for the http proxy to access the website, the webserver from www.b.com will receive a http message from the proxy and will anwser as usual, but in the http HEADER from the message will be changed by the http proxy server who will add or change some headers like User-Agent, X-Forwarded-For, used a lot for companies who need to control their users Internet access.
 
 * Describe briefly how HTTPS works.
   - HTTPS uses the same HTTP protocol but creates a security layer(tunnel) using SSL/TLS, on top of it, this prevents anyone modify or see what's happening inside this tunnel and ensure the client it's communicating with the right server. The SSL handshake is established and after that all HTTP responses are send by.  
@@ -76,7 +76,7 @@ A collection of linux sysadmin/devops interview questions. Feel free to contribu
   RAID (Redundant Array of Independent Disks) it' s a data storage virtualization technology that combines multiple physical disks in one logical volume.
   - RAID0 - Striping, the data is striped between 2 or more disks, improving speed but compromising availability.
   - RAID1 - Mirroring, the data is mirrored between 2 or more disks, improving availability (the server could lose N - 1 disks) but compromises the speed (replication time).
-  - RAID5 -  Blocks striped but uses distributed parity, RAID5 uses minimum 3 disks, that stripe data between than, but replicates blocks too, it's a good RAID for databases, in this cenario read operations are good, but write can be slow.
+  - RAID5 -  Blocks striped but uses distributed parity, RAID5 uses minimum 3 disks, that stripe data between them, but replicates blocks too, it's a good RAID for databases, in this cenario read operations are good, but write can be slow.
   - RAID10 - It's a implementation using RAID0 + RAID1, uses 4 disks, striping data between 2 of then and mirroring this data in another 2 disks.
 
 * What is a level 0 backup? What is an incremental backup?
@@ -114,7 +114,7 @@ A collection of linux sysadmin/devops interview questions. Feel free to contribu
 
 * Which command will show you free/used memory? Does free memory exist on Linux?
   - free
-  - Sure exists, but the Linux kernel creates file caches with memory ram, so when we see the output from free command, sometimes can show us that we are without memory but this memory is cached by the SO.
+  - Sure exists, but the Linux kernel creates file caches in ram, so when we see the output from free command, sometimes can show us that we are without memory but this memory is cached by the SO.
 
 * How to search for the string "my konfi is the best" in files of a directory recursively?
   - grep -Rin "my konfi is the best" /folder
@@ -219,7 +219,7 @@ A collection of linux sysadmin/devops interview questions. Feel free to contribu
   - tac it's a reverse cat, pritting the file bottom to up.
 
  * ```curl```
-  - curl or cURL is a tool to transfer data from or to a server, using one of the supported protocols. cURL can be called a CLI browser, you can user authentication, change the HEADER, and do a lot of stuffs with it.
+  - curl or cURL is a tool to transfer data from or to a server, using one of the supported protocols. cURL can be called a CLI browser, you can use to authenticate, change the HEADER, and do a lot of stuffs with it.
 
  * ```wget```
   - wget is a tool for retrieving files using HTTP, HTTPS or FTP.
@@ -271,7 +271,7 @@ A collection of linux sysadmin/devops interview questions. Feel free to contribu
   - It makes the file immutable, any user can change the state of the file or create hard links.
 
 * What is the difference between hardlinks and symlinks? What happens when you remove the source to a symlink/hardlink?
-  - All files in the linux filesystem it's a link to a inode, a hard link it's a new link to the same inode (if you remove or rename the old or the new link, the file will be intact, but any change in the data on the inode is reflected in all files that refer to that inode), the file system will only delete the inode if you don't have any link for this inode. Because of that a hardlink only works in files that are in the same file system.
+  - All files in the linux filesystem are a link to a inode, a hard link is a new link to the same inode (if you remove or rename the old or the new link, the file will be intact, but any change in the data on the inode is reflected in all files that refer to that inode), the file system will only delete the inode if you don't have any link for this inode. Because of that a hardlink only works in files that are in the same file system.
 
   - A softlink, it's a link that points the link from the inode, so it's a link from a link if the first link change the name or be deleted, the soft link will break, but you can use between differents filesystems.
 
