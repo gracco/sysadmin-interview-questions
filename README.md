@@ -1,7 +1,7 @@
 Linux System Administrator/DevOps Interview Questions
 ====================================================
 
-A collection of linux sysadmin/devops interview questions. Feel free to contribute via pull requests, issues or email messages.
+A collection of Linux sysadmin/devops interview questions. Feel free to contribute via pull requests, issues or email messages.
 
 
 ## <a name='toc'>Table of Contents</a>
@@ -16,6 +16,7 @@ A collection of linux sysadmin/devops interview questions. Feel free to contribu
   1. [MySQL Questions](#mysql)
   1. [DevOps Questions](#devop)
   1. [Fun Questions](#fun)
+  1. [Kubernetes Questions](#kubernetes)
   1. [Demo Time](#demo)
   1. [Other Great References](#references)
 
@@ -37,39 +38,39 @@ A collection of linux sysadmin/devops interview questions. Feel free to contribu
 ####[[⬆]](#toc) <a name='general'>General Questions:</a>
 
 * What did you learn yesterday/this week?
-   - CircleCI 2.0 workflow, integrating with packer, and ansible to build imutable infrastructure pipeline.
+   - I was reading about differences types of encryption, and their usage, when use an asymmetric key or a symmetric key and what are the limits and applications of GCP when need to encrypt backups for example. 
 
 * Talk about your preferred development/administration environment. (OS, Editor, Browsers, Tools etc.)
-  - SO - Linux (Arch Linux)
+  - SO - Linux
     editor - vscode
     Browser- chromium/firefox 
-    tools - git, zsh, oh-my-zsh, python, ansible, terminator, packer, meld, git, helm, kubectl, aws tools, kubetail, eksctl
-    distro - Arch (L)
-    environment - i3wm
+    tools - terraform, vim, git, zsh, oh-my-zsh, python, ansible, terminator, packer, meld, helm, kubectl, aws tools, kubetail, eksctl
+    distro - Arch Linux
+    environment - i3wm + lxde
 
 * Tell me about the last major Linux project you finished.
-  - My major project in life it was e-commerce migration/implementation project using opensource tools like centos, java, springcloud, mongodb, centos, rabbitmq, cassandra, kafka+zookeeper, Azure, percona-mysql, NetflixOSS (as API gateway), nodejs, took 2 years to complete, I joined since the very beginning.
+  - My major project in life was an e-commerce creation/migration project using opensource tools like centos, java, springcloud, mongodb, centos, rabbitmq, cassandra, kafka+zookeeper, Azure, percona-mysql, NetflixOSS (as API gateway), nodejs, took 2 years to complete, I joined since the very beginning.
 
 * Tell me about the biggest mistake you've made in [some recent time period] and how you would do it differently today. What did you learn from this experience?
-  - I was suppose to use docker swarm in production, but we didn't test our performance in this new environment/tool, when the system received a huge throughtput everything started to break. At this time I had to migrate very fast back to IAAS, and I learned a lot of stuff about docker, cgroups, and why we always need to test before put something in production. 
+  - I hired someone that it's a very good engineer but it's awful into social skills. This new person broke completely the team synergy and at the end the team itself. I learned that friendly > technical skills
 
 * Why we must choose you?
-  - I have a lot of experience, with different environments, different size of companies, with that I have a huge experience scalling services, learning new tecnologies, automating boring tasks, and a cool mind to troubleshoot and solve problems in critical environments.
+  - I have a lot of experience, with different types of environments, I worked with all three main cloud providers, different size of companies. I have a huge experience scaling services, learning new technologies, automating simple tasks, a cool mind to troubleshoot and solve problems in critical environments. I have been working as tech lead, and product owner for SRE team.
 
 * What function does DNS play on a network?
-  - It's on the core for any serious environment, resposible to translate IP addresses into names, DNS can also provides a load balancer layer using geolocation, service discovery using SRV entry and a lot of others features.
+  - It's on the core for any environment, responsible to translate IP addresses into names, DNS can also provides a load balancer layer using geolocation, service discovery using SRV entry and a lot of others features.
 
 * What is HTTP?
   - HTTP (hypertext transport protocol) it's a protocol that defines how messages are formated and transmitted via web, and what actions webservers and browsers should take in response of various commands.
 
 * What is an HTTP proxy and how does it work?
-  - An HTTP proxy it's a service that forwards http connections, for example a user A want's to access a server www.b.com, but for security reasons the user cannot have direct access on internet, so the user's browser will ask for the http proxy to access the website, the webserver from www.b.com will receive a http message from the proxy and will anwser as usual, but in the http HEADER from the message will be changed by the http proxy server who will add or change some headers like User-Agent, X-Forwarded-For, used a lot for companies who need to control their users Internet access.
+  - An HTTP proxy it's a service that forwards HTTP connections, for example a user A want's to access a server www.b.com, but for security reasons the user cannot have direct access on internet, so the user's browser will ask for the HTTP proxy to access the website, the webserver from www.b.com will receive a HTTP message from the proxy and will answer as usual, but in the http HEADER from the message will be changed by the HTTP proxy server who will add or change some headers like User-Agent, X-Forwarded-For, used a lot by companies that need to control their users Internet access.
 
 * Describe briefly how HTTPS works.
-  - HTTPS uses the same HTTP protocol but creates a security layer(tunnel) using SSL/TLS, on top of it, this prevents anyone modify or see what's happening inside this tunnel and ensure the client it's communicating with the right server. The SSL handshake is established and after that all HTTP responses are send by.  
+  - HTTPS uses the same HTTP protocol but creates a security layer(tunnel) using SSL/TLS, on top of it, this prevents anyone modify or inspect what's happening inside this tunnel and ensure the client it's communicating with the right server. The SSL handshake is established and after that all HTTP responses are send by.  
 
 * What is SMTP? Give the basic scenario of how a mail message is delivered via SMTP.
-  - SMTP ( Simple Mail transport protocol) it's a protocol that works in the application layer, and uses a process called "store and forward", working close with the MTA (Mail Tranfer Agent) and this MTA server send via SMTP a package with the messages, when this message arrives at the destination, the client will use POP3/IMAP to download it.
+  - SMTP ( Simple Mail transport protocol) works in the application layer, and uses a process called "store and forward", working close to a  MTA (Mail Tranfer Agent), this MTA service sends via SMTP a package with the messages, when this message arrives at the destination, the client will use POP3/IMAP to download it.
 
 
 * What is RAID? What is RAID0, RAID1, RAID5, RAID10?
@@ -161,6 +162,7 @@ A collection of linux sysadmin/devops interview questions. Feel free to contribu
 * How to add/remove a group from a user?
   - usermod -a -G groupname username #to add a user in a new group
   - usermod -G [all groups that you want the user into] username #You don't remove the user from a group, you add the user in all groups that this user is suppose to be.
+  - newgrp <GroupName> - Updates shell session with new group permissions
 
 * What is a bash alias?
   - It's a shortcut for some bash command
@@ -178,7 +180,7 @@ A collection of linux sysadmin/devops interview questions. Feel free to contribu
 
 * How to redirect STDOUT and STDERR in bash? (> /dev/null 2>&1)
   - 1> redirect the STDOUT
-  - 1>> redirect the STDOUT in a append mode
+  - 1>> redirect the STDOUT in append mode
   - 2> redirect the STDERR
   - 2>> redirect the STDERR in append mode
   - &> redirect both STDERR and STDOUT
@@ -250,15 +252,16 @@ A collection of linux sysadmin/devops interview questions. Feel free to contribu
 
 * What is an A record, an NS record, a PTR record, a CNAME record, an MX record?
   - A record stands for address, indicates a IP address for a domain
+  - NS stands for Name Server record indicates which DNS server is authoritative for that domain ( Where the actual DNS entries are)
   - CNAME stands for canonical name and servers to make one domain to another domain name.
   - MX stands for mail exchange, it's a list of mail exchange servers used by the domain.
 
 * Are there any other RRs and what are they used for?
   - Yes.
   - PRT record stands for pointer record  and maps a IPV4 address to a CNAME
-  - NS record stands for name server and indicates with name server is authoritative for the domain
-  - SOA record stands for State of Authority and is easily  one of the most important DNS records because stores information like when the domain was last updated.
-  - SRV record stands for Service Record, is a record that specifies hostname and port number for a specific service.
+  - SOA record stands for State of Authority and is easily one of the most important DNS records because stores information like when the domain was last updated.
+  - SRV record stands for Service Record, is a record that specifies hostname and port number for a specific service, it can be used for service discovery.
+  - TXT record stands for Text Information, used by various purposes, as domain ownership for example.
 
 * What is a Split-Horizon DNS?
   - It's the hability of the DNS answer a different answer to a query based on the source of the query. A common use it's when the DNS server for internal and external queries.
@@ -282,10 +285,10 @@ A collection of linux sysadmin/devops interview questions. Feel free to contribu
   - Create a file named forcefsck in the root folder
 
 * What is SNMP and what is it used for?
-  - SNMP stands for simple network monitoring protocol, it's a protocol to monitor devices.
+  - SNMP stands for simple network monitoring protocol, it's a protocol to monitor devices, works in the application layer, has 3 versions now, they are not compatible between each other, and V3 introduced encryption. Messages are transported via UDP.
 
-* What is a runlevel and how to get the current runlevel?
-  - Runlevel it's a preset operational system state, to get the current runlevel uses the command runlevel, or who -r
+* What is a runlevel and how to get the current runlevel? 
+  - Runlevel it's a preset operational system state, to get the current runlevel uses the command runlevel, or `who -r`
 
 * What is SSH port forwarding?
   - SSH Port forwarding it's a way to create a tunnel between your machine in a destination using ssh.
@@ -294,8 +297,8 @@ A collection of linux sysadmin/devops interview questions. Feel free to contribu
   - Local port forwading creates a tunnel between a local server and a local client, a remote port uses a local server but with internet ip address to connect a internal service that doesn't have access in the internet.
 
 * What are the steps to add a user to a system without using useradd/adduser?
-  - Edit /etc/passwd with the new username, configure the home, and shell
-  - Edit /etc/groups add this new username to some groups
+  - Edit `/etc/passwd` with the new username, configure the home, and shell
+  - Edit `/etc/groups` add this new username to some groups
   - Create the user home folder and set the right permissions
   - Reset the user password with passwd username
 
@@ -303,13 +306,13 @@ A collection of linux sysadmin/devops interview questions. Feel free to contribu
   - The MAJOR number will set to the kernel with kind of device it is, and MINOR number will set a special characteristics of the device, example if a machine have 2 disks, the MAJOR number will be the same for both, but the MINOR doesn't.
 
 * Describe the mknod command and when you'd use it.
-  - mknod command creates a new device in /dev but actually udev creates automatically each device, if something very terrible happen we can recreate some devices using mknod to fix or make some backup.
+  - mknod command creates a new device in `/dev` but actually udev creates automatically each device, if something very terrible happen we can recreate some devices using mknod to fix or make some backup.
 
 * Describe a scenario when you get a "filesystem is full" error, but 'df' shows there is free space.
-  - When a filesystem it's out of inodes. df -i will show.
+  - When a filesystem it's out of inodes. `df -i` will show.
 
 * Describe a scenario when deleting a file, but 'df' not showing the space being freed.
-  - when a processing it's using that file. We can use lsof to check.
+  - when a processing it's using that file. We can use `lsof` to check it.
 
 * Describe how 'ps' works.
   - the ps command read files from /proc which the content of this files are generated by the kernel.
@@ -319,20 +322,20 @@ A collection of linux sysadmin/devops interview questions. Feel free to contribu
 
 * Explain briefly each one of the process states.
   - Created or new state, in this moment the process wait the admission to the ready state, by the scheduler
-  - Ready or waiting the process has been loaded  into main memory  and is awaiting execution on a CPU
+  - Ready or waiting the process has been loaded into main memory  and is awaiting execution on a CPU
   - Running the process moves into running state when it's chosen for execution.
-  - Blocked it's when the process cannot carry without  an external change in the state or event, example when a process needs a user input.
-  - Terminated it's a state after completing the execution or being explicitly killed, but the process remain as zombie until the parent  process call  the wait system call to read its exit status, and finally ending the process lifetime.
+  - Blocked it's when the process cannot carry without an external change in the state or event, example when a process needs a user input.
+  - Terminated it's a state after completing the execution or being explicitly killed, but the process remain as zombie until the parent  process call the wait system call to read its exit status, and finally ending the process lifetime.
 
 * How to know which process listens on a specific port?
-  - lsof -i :PORT or netstat -lp | grep port or ss -lp | grep port
+  - `lsof -i :$PORT` or `netstat -lp | grep $port` or `ss -lp | grep $port`
 
 * What is a zombie process and what could be the cause of it?
   - Each process when ended enter in zombie state, waiting for the parent process call a wait call and read the exit status, if this wait call never be called, this process will end up as a zombie, and we will need to call a SIGCHLD to the parent process to kill all child process.
 
 * You run a bash script and you want to see its output on your terminal and save it to a file at the same time. How could you do it?
  - Use the tee command
- - script | tee file
+ - `script | tee file`
 
 * Explain what echo "1" > /proc/sys/net/ipv4/ip_forward does.
  - Disable ipv4 ip_forward function from the kernel, as well the routing function
@@ -342,6 +345,8 @@ A collection of linux sysadmin/devops interview questions. Feel free to contribu
   - Uses this key file to create a csr file
   - Send this csr file to a ssl certificate provider
   - Get the crt from the certificate provider with the CA chain and configure into the webserver
+  or
+  - Uses certbot for your specific case.
 
 * Can you have several HTTPS virtual hosts sharing the same IP?
   - Yes using virtualhosts, but the client needs to support http/1.1, to use name-based virtual host configuration.
@@ -367,7 +372,7 @@ A collection of linux sysadmin/devops interview questions. Feel free to contribu
   - A fork in a simple way, it's a process copy only changing the pid and resource limits, a exec it's a call that basically replaces the entire current process with a new program. It loads the program into the current process space and runs it from the entry point. Example, when we call the find command, our bash forks itself, and in this new fork context, uses exec call to execute the find program.  
 
 * What is "nohup" used for?
-  - It's used to create process that are independent from user login, starting a process with nohup it's telling the process to ignode SIGHUP calls, that the signal sent by the kernel when the parent shell is closed.
+  - It's used to create process that are independent from user login, starting a process with nohup it's telling the process to ignore SIGHUP calls, that the signal sent by the kernel when the parent shell is closed.
 
 * What is the difference between these two commands?
  * ```myvar=hello```
@@ -381,16 +386,16 @@ A collection of linux sysadmin/devops interview questions. Feel free to contribu
   - It's a octal number, that show the last 8 transactions with the ntp server, this number is a FIFO log, so if same packet doesn't arrive (it's UDP), this number can be different based in the order of the checks.
 
 * You need to upgrade kernel at 100-1000 servers, how you would do this?
-  - I will use ansible, but before I will test in some controled group to see if something bad can happen.
+  - I would use ansible, but before I will test in some controled group to see if something bad can happen.
 
 * How can you get Host, Channel, ID, LUN of SCSI disk?
-  - cat /proc/scsi/scsi
+  - `cat /proc/scsi/scsi`
 
 * How can you limit process memory usage?
   - Calling the program with limit command, or set the ulimit in the console, or in the /etc/security/limits.d, or in the systemd init script.
 
 * What is bash quick substitution/caret replace(^x^y)?
-  - sed -e 's/^x/^y/g'
+  - `sed -e 's/^x/^y/g'`
 
 * Do you know of any alternative shells? If so, have you used any?
   - I use zsh, it's 100% bash compatible
@@ -404,8 +409,8 @@ A collection of linux sysadmin/devops interview questions. Feel free to contribu
   - We can create a ssh tunnel with ssh -R and redirect the http proxy to our server who has access to the internet.
 
 * What is the difference between IDS and IPS?
-  - IDS detect the problem inspecting the packet header and payload and create a log.
-  - IPS detect the problem inspecting the packet header and payload and drop the packet if finds something problematic, based in some pre defined rules.
+  - IDS detect the problem inspecting the packet header and payload and creates a log.
+  - IPS detect the problem inspecting the packet header and payload and drops the packet if finds something problematic, based in some pre defined rules.
 
 * What shortcuts do you use on a regular basis?
   - ai package - sudo aptitude install package
@@ -423,8 +428,8 @@ A collection of linux sysadmin/devops interview questions. Feel free to contribu
 * What is an atomic operation?
   - Atomic operations are program operations that run completly independently from any other process.
 
-* Your freshly configured http server is not running after a restart, what can you do?
-  - I try to see the logs and check what's the problem.
+* Your freshly configured HTTP server is not running after a restart, what can you do?
+  - I would try to see the logs and check what's the problem.
 
 * What kind of keys are in ~/.ssh/authorized_keys and what it is this file used for?
   - Public keys, they are used to authenticate users in the server.
@@ -439,7 +444,7 @@ A collection of linux sysadmin/devops interview questions. Feel free to contribu
   - creates a forkbomb
 
 * How do you catch a Linux signal on a script?
-  - using the command trap inside the script
+  - using the command `trap` inside the script
 
 * Can you catch a SIGKILL?
   - No, by security proposes
@@ -453,7 +458,7 @@ A collection of linux sysadmin/devops interview questions. Feel free to contribu
   - bootloader
     - The bootloader (GRUB2) present options to the user select, and loads the kernel into memory and supplies it with some parameters.
   - kernel
-    - The kernel will decompressed itself and will setup essential hardware and memory paging, and calls start_kernel() function, and it will perform the majority of system setups like device and driver initialization, scheduler, idle process and then starts separately in the user space the init process (pid 1).
+    - The kernel will decompress itself and will setup essential hardware and memory paging, and calls start_kernel() function, and it will perform the majority of system setups like device and driver initialization, scheduler, idle process and then starts separately in the user space the init process (pid 1).
   - init
     -The init it's scripts executed by shell (sysV, runit) or configuration files that are executed by binaries (upstart, systemd), init has specific levels, that are passed as variable at the call, with consists of specifics set of daemons. These will provide various non-operating system services and structures and form the user environment.
   - User enviroment
@@ -485,16 +490,16 @@ A collection of linux sysadmin/devops interview questions. Feel free to contribu
 ####[[⬆]](#toc) <a name='network'>Networking Questions:</a>
 
 * What is localhost and why would ```ping localhost``` fail?
-  - Localhost it's the internal interface in Linux, that some programs can use to talk to each other inside the server. The ping will fail if the lo interface is down, or if we don't resolve localhost in our /etc/hosts file or some firewall rule it's enabled disabling ICMP.
+  - Localhost it's the internal interface in Linux, that some programs can use to talk to each other inside the server. The ping will fail if the lo interface is down, or if we don't resolve localhost in our /etc/hosts file or some firewall rule it's enabled dropping ICMP packets.
 
 * What is the similarity between "ping" & "traceroute" ? How is traceroute able to find the hops.
-  - Both uses ICMP (Internet control message protocol) packets to archive their proposes, but traceroute sends the packets gradually increasing the TTL value, starting with TTL 1. The first router  receives the packet, decrements the TTL value and drops the packet because the TTL has zero. The router sends an ICMP Time Exceeded message back to the source.
+  - Both use ICMP (Internet control message protocol) packets to archive their proposes, but traceroute sends the packets gradually increasing the TTL value, starting with TTL 1. The first router  receives the packet, decrements the TTL value and drops the packet because the TTL has zero. The router sends an ICMP Time Exceeded message back to the source.
 
 
 * What is the command used to show all open ports and/or socket connections on a machine?
-  - lsof -i
-  - netstat -a
-  - ss -a
+  - `lsof -i`
+  - `netstat -a`
+  - `ss -a`
 
 * Is 300.168.0.123 a valid IPv4 address?
   - no
@@ -505,7 +510,7 @@ A collection of linux sysadmin/devops interview questions. Feel free to contribu
   - 172.16.0.0/16
 
 * What is a VLAN?
-  - It's a virtual lan created to separate networks inside a switch, making the broadcast domain shorter, and for security proposes.
+  - It's a virtual lan created to separate networks inside a switch, making the broadcast domain shorter, and for security proposes. Works in the network layer (OSI Layer 2)
 
 * What is ARP and what is it used for?
   - It's a layer 2 protocol that maps IP address to MAC address.
@@ -529,7 +534,7 @@ A collection of linux sysadmin/devops interview questions. Feel free to contribu
  - source-port
 
 * When a client running a web browser connects to a web server, what is the source port and what is the destination port of the connection?
-  - source port it's dynamic based on net.ipv4.ip_local_port_range defined between 32768 - 61000, destination port 80.
+  - source port it's dynamic based on net.ipv4.ip_local_port_range defined between 32768 - 61000, destination port 80 or 443.
 
 * How do you add an IPv6 address to a specific interface?
   - using ip -6 addr command, or using ifconfig ip inet6, or editing the SO file for network interfaces.
@@ -553,7 +558,7 @@ A collection of linux sysadmin/devops interview questions. Feel free to contribu
 ####[[⬆]](#toc) <a name='devop'>DevOps Questions:</a>
 
 * Can you describe your workflow when you create a script?
-  - First I think about the problem, then I create some variables, and start to code trying to use best practices, after a part I test, and so on.
+  - First I think about the problem, then create some concept to solve a small part of the problem, than I interate on top of if, adding more layers of complexity, at the end I test, and run some lint, create a pull request and submit to the team evaluate the solution proposed.
 
 * What is GIT?
   - It's a SCM (source code management), it's a software that controls source code, and helps developers to work together and to share code.
@@ -564,17 +569,18 @@ A collection of linux sysadmin/devops interview questions. Feel free to contribu
 
 * What does "./configure && make && make install" do?
   - Compiles a source code, creates a binary file and copy to a pre defined path
+
 * What is puppet/chef/ansible used for?
   - Automatize infrastructure, you create a code and run this code against an infrastructure
 
 * What is Nagios/Zenoss/NewRelic used for?
-  - Monitoring infraestructure and services.
+  - Monitoring infrastructure and services.
 
 * What is the difference between Containers and VMs?
-  - VMs have all the OS stack, devices and so, containers uses the cgroup implementation from the kernel, and have a little footprint because of that.
+  - VMs have all the OS stack, devices and so, containers uses the cgroup implementation from the kernel, and have a smaller footprint because of that.
 
 * How do you create a new postgres user?
-  - createuser command
+  - `createuser command`
 
 * What is a virtual IP address? What is a cluster?
   - Virtual IP address, it's IP address defined in a virtual interface, a cluster it's 2 or more machines working together to delivery a service.
@@ -583,8 +589,8 @@ A collection of linux sysadmin/devops interview questions. Feel free to contribu
   - using the command strings
 
 * How do you find shared library dependencies?
-  - ldd /fullpath/command
-  - readelf -d /fullpath/command
+  - `ldd /fullpath/command`
+  - `readelf -d /fullpath/command`
 
 * What is Automake and Autoconf?
   - They are programming tools to automate parts of the compilation process.
@@ -599,7 +605,7 @@ A collection of linux sysadmin/devops interview questions. Feel free to contribu
   - Continous delivery it's one subject inside the DevOps methodology, this subject explain and show us how to delivery sofware or services fast, without human intervention.
 
 * What are the important aspects of a system of continuous integration and deployment?
-  - testing, automatize the process, and do stuff without human intervention
+  - testing, automatize the process, decrease human error, automate quality of code, check of vulnerabilities, lint to have a more reliable and trustful process/delivery
 
 ####[[⬆]](#toc) <a name='fun'>Fun Questions:</a>
 
@@ -620,13 +626,15 @@ A collection of linux sysadmin/devops interview questions. Feel free to contribu
 
 * Tell me about a creative way that you've used SSH?
   - a for loop to send via ssh a command to 50 vms.
-  - to connect in a internal network gitlab, using a IPSec VPN connected in a bastion host.
+  - to connect in an internal deployed gitlab service, using a IPSec VPN connected in a bastion host.
 
 * You have deleted by error a running script, what could you do to restore it?
   - I could copy the file descriptor from the /proc/PID/fd/number_of_file_descriptor into a new file.
 
 * What will happen on 19 January 2038?
-  - The standard time libray from C was developed using 4-byte to storage time and 4-byte integer its, a 2 trillion number, that in seconds, translates to January 2038, in that time some mainframes could be have some issue, openbsd is already ready.
+  - The standard time libray from C was developed using 4-byte to storage time and 4-byte integer its, a 2 trillion number, that in seconds, translates to January 2038, in that time some mainframes could have some issue, openbsd is already patched.
+
+####[[⬆]](#toc) <a name='kubernetes'>Kubernetes Questions:</a>
 
 
 ####[[⬆]](#toc) <a name='demo'>Demo Time:</a>
