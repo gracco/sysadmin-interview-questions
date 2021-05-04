@@ -16,6 +16,7 @@ A collection of Linux sysadmin/devops interview questions. Feel free to contribu
   1. [MySQL Questions](#mysql)
   1. [DevOps Questions](#devop)
   1. [Fun Questions](#fun)
+  1. [SRE Questions](#sre)
   1. [Kubernetes Questions](#kubernetes)
   1. [Demo Time](#demo)
   1. [Other Great References](#references)
@@ -413,14 +414,14 @@ A collection of Linux sysadmin/devops interview questions. Feel free to contribu
   - IPS detect the problem inspecting the packet header and payload and drops the packet if finds something problematic, based in some pre defined rules.
 
 * What shortcuts do you use on a regular basis?
-  - ai package - sudo aptitude install package
-  - ll - ls -lha
-  - gitcm - git commit -m
-  - gl - git pull
-  - gp - git push
-  - .. - cd ..
-  - ... - cd ../..
-  - .... - cd ../../../
+  - `ai package` - `sudo aptitude install package`
+  - `ll` - `ls -lha`
+  - `gitcm` - `git commit -m`
+  - `gl` - `git pull`
+  - `gp` - `git push`
+  - `..` - `cd ..`
+  - `...` - `cd ../..`
+  - `....` - `cd ../../../`
 
 * What is the Linux Standard Base?
   - It's a joint project projected by several Linux distributions under the organizational structure of the Linux Foundation to standardize the sofware system structure, including filesystem hierarchy.
@@ -634,8 +635,74 @@ A collection of Linux sysadmin/devops interview questions. Feel free to contribu
 * What will happen on 19 January 2038?
   - The standard time libray from C was developed using 4-byte to storage time and 4-byte integer its, a 2 trillion number, that in seconds, translates to January 2038, in that time some mainframes could have some issue, openbsd is already patched.
 
-####[[⬆]](#toc) <a name='kubernetes'>Kubernetes Questions:</a>
+####[[⬆]](#toc) <a name='SRE'>SRE Questions:</a>
+* Can you explain what SLA means?
 
+* What's the “five nines” (“nine fives”, “two and a half nines”) uptime?
+
+* What would be the good SLI for an API service? How would you use an SLI to meet the SLO?
+
+* What are the SRE Signals?
+
+* True or false, you should always aim to make your service as reliable as it can possibly be?
+
+* Explain the differences between GKE ingress and Nginx Ingress
+
+* As an SRE, what is your choice?
+
+
+####[[⬆]](#toc) <a name='kubernetes'>Kubernetes and Docker Questions:</a>
+
+* Describe a simple approach to efficient manage container resources K8S cluster
+- In the pod or deployment specification you can set `limits` for that container or `requests`
+- Seting a request for Containers in a pod, the scheduler it will use this information to decide which node to run that container, the container can if needed use more resource than what it was set in the request.
+- Setting a limit it will limit the container to use maximum that amount of memory or CPU cycles, this is enforced by the kubelet the container. If only limits is set the kube scheduler it will set the request that matches the limit.
+- When a process tries to use more than the allowed amount of memory the system kernel terminates the process with a OOM Error ( out of memory ) 
+- Configure a HPA
+
+* What are the layers in Docker and why are they useful?
+- Docker layer it's a file generated from running some command during a docker build, and be accessed in the docker host `/var/lib/docker/aufs/diff`, they can be used as cache.
+- `docker history [image name]` shows all layers 
+- Because of the usage of AUFS ( Advanced multi-layered unification filesystem ) when docker mounts those layers a diff is applied and layers are reused.
+
+* What features of the Linux kernel enable Docker to work?
+- CGroups
+- Namespaces
+
+* What is the difference between the COPY and ADD commands in a Dockerfile?
+- ADD and COPY have the same usage but ADD supports tar and remote url handling, so you can download files or untar directly in the image.
+
+* Describe the lifecycle of a Pod? What is the phase of a Pod?
+- Pods are considered ephemeral rather ahtn durable entities, and are created, assigned an unique ID and scheduled to a node, do not self-heal by themselves, if the node goes down, a new pod with new ID is rescheduled.
+- Pods have status and a `PodStatus` field which has `phase` field and it can be:
+- Pending: The Pod has been accepted by Kubernetes Cluster, but one or more containers has not been set up. This includes the time that a Pod spends waiting download container images.
+- Running: The Pod has been bound to a node, and all of the containers have been created.
+- Suceeded: All containers in the Pod have terminated in success, and will not be restarted.
+- Failed: All containers in the Pod have terminated, and at least one conetainer has terminated in failure. That is. the container either exited with non-zero status or was terminated by the system.
+- Unknown: For some readon the state of the Pod could not be obtained. This phase typically occurs dut to an error in communicating with the node where the Pod should be running.
+
+* What are three types of handlers to perform a diagnostic by Kubernetes engine?
+- A probe is a diagnostic performed by the kubelet on a Container, to diagnost the kubelet calls a handler implemented by the container.
+- ExecAction: Executes a specified command inside the container. The diagnostic is considered successful if the command exits with a status code of 0.
+- TCPSocketAction: Performs a TCP check agains the Pod's IP address on a specific port. The diagnostic is considered successful if the command the port is open.
+- HTTPGetAction: Performs an HTTP GET request against the Pod's IP address on a specified port and path. The Diagnostic is considered succesful if the response has a status code greater or equal to 200 and less than 400.
+
+* When should you use a liveness, readiness and startup probe?
+- The kubelet use liveness probes to know when to restart a container, one example is a deadlock. Readiness probe is used when the kubelet needs to know if the container is ready to accept traffic, and this signal is used to control which Pods are used as backend Services. When is not ready is removed from Service load balancer. The startup probe is used by kubelet to know when a container application has started, if is configured, it disables liveness and readiness checks until succeeds. This can be used to adopt liveness checks on slow starting containers, avoiding them getting killed by the kubelet before they are up and running.
+
+* What are Init Containers?  How do they differ from regular containers? Why are they useful?
+- Init containers are used by Pods to run before the app container start. They differ from app containers, as they always need to run to completion, so they don't have probes, and each init container must complete successfully before the next one starts, if not the kubelet it will apply the `restartPolicy` defined in the Pod, until the init container is succesful. They are useful because they can be used by a blocker or delay of dependencies, to start Pods in parallel, they can run utilities that would make the app container less secure.
+
+* postStart & preStop events?
+- Kubernetes has component lifecycle hooks and they are exposed at the container level:
+- `PostStart` is executed immediately after a container is created.
+- `PreStop` is called immediately before a container is terminated due to an API request or management event, such as probes.
+
+* Why use a Statefulset?
+- Stateful sets different than deployments, have a unique network identifiers, and DNS names inside of the kubernetes network, stable storage, and pod name label,
+deployment and scaling guarantees like deploy and termination order.
+
+####[[⬆]](#toc) <a name='Service Mesh'>Service Mesh Questions:</a>
 
 ####[[⬆]](#toc) <a name='demo'>Demo Time:</a>
 
