@@ -1,7 +1,7 @@
 Linux System Administrator/DevOps Interview Questions
 ====================================================
 
-A collection of Linux sysadmin/devops interview questions. Feel free to contribute via pull requests, issues or email messages.
+A collection of Linux sysadmin/Devops interview questions. Feel free to contribute via pull requests, issues, or email messages.
 
 
 ## <a name='toc'>Table of Contents</a>
@@ -41,11 +41,11 @@ A collection of Linux sysadmin/devops interview questions. Feel free to contribu
 * What did you learn yesterday/this week?
    - I was reading about differences types of encryption, and their usage, when use an asymmetric key or a symmetric key and what are the limits and applications of GCP when need to encrypt backups for example. 
 
-* Talk about your preferred development/administration environment. (OS, Editor, Browsers, Tools etc.)
+* Talk about your preferred development/administration environment. (OS, Editor, Browsers, Tools, etc.)
   - SO - Linux
-    editor - vscode
+    editor - Vscode
     Browser- chromium/firefox 
-    tools - terraform, vim, git, zsh, oh-my-zsh, python, ansible, terminator, packer, meld, helm, kubectl, aws tools, kubetail, eksctl
+    tools - terraform, vim, git, ZSH, ohmyzsh, Python, ansible, terminator, packer, meld, helm, kubectl, aws tools, kubetail, eksctl
     distro - Arch Linux
     environment - i3wm + lxde
 
@@ -53,32 +53,56 @@ A collection of Linux sysadmin/devops interview questions. Feel free to contribu
   - My major project in life was an e-commerce creation/migration project using opensource tools like centos, java, springcloud, mongodb, centos, rabbitmq, cassandra, kafka+zookeeper, Azure, percona-mysql, NetflixOSS (as API gateway), nodejs, took 2 years to complete, I joined since the very beginning.
 
 * Tell me about the biggest mistake you've made in [some recent time period] and how you would do it differently today. What did you learn from this experience?
-  - I hired someone that it's a very good engineer but it's awful into social skills. This new person broke completely the team synergy and at the end the team itself. I learned that friendly > technical skills
+  - I hired someone that it's a very good engineer but has very bad social skills. This new person broke completely the team synergy and at the end the team itself. I learned that friendly > technical skills
 
 * Why we must choose you?
-  - I have a lot of experience, with different types of environments, I worked with all three main cloud providers, different size of companies. I have a huge experience scaling services, learning new technologies, automating simple tasks, a cool mind to troubleshoot and solve problems in critical environments. I have been working as tech lead, and product owner for SRE team.
+  - I have a lot of experience, with different types of environments, I worked with all three main cloud providers ( GCP, AWS and Azure), in different size of companies. I have a huge experience scaling services, learning new technologies, automating simple tasks, a cool mind to troubleshoot and solve problems in critical environments. I have been working as tech lead, and product owner for SRE team.
 
 * What function does DNS play on a network?
-  - It's on the core for any environment, responsible to translate IP addresses into names, DNS can also provides a load balancer layer using geolocation, service discovery using SRV entry and a lot of others features.
+  - It's on the core for any environment, responsible to translate IP addresses into names, DNS can also provides a load balancer layer using geolocation, service discovery using SRV entry and a lot of others features, like domain ownership confirmation using TXT entries ( useful to generate SSL certs, for example )
 
 * What is HTTP?
   - HTTP (hypertext transport protocol) it's a protocol that defines how messages are formated and transmitted via web, and what actions webservers and browsers should take in response of various commands.
+
+* What are HTTP status codes?
+  - HTTP status codes are predefined status of the task at the server
+    - 1xx - represents informational responses
+    - 2xx - represents succesful responses
+    - 3xx - represents redirect responses
+    - 4xx - represents client errors
+    - 5xx - represents server errors
+  - The most commmons status codes are:
+    - 200 Success/OK
+    - 201 - CREATED - used by POST or PUT methods
+    - 304 - NOT MODIFIED - used in conditional GET Request to reduce bandwitdth use
+    - 400 - BAD REQUEST - This can be due to validation errors or missing input data
+    - 404 - NOT FOUND - Resource method is not available
+    - 500 - INTERNAL SERVER ERROR - server threw some exceptions while running the method
+    - 502 - BAD GATEWAY - Server was not able to get the response from another upstream server
+
+* Describe the most common HTTP methods/verbs, and give examples:
+  - GET - Read only operation, used to fetch detail from the server, downloads
+  - POST - This method is used for the creationg of new resources on the server
+  - PUT - This method is used to update existing resource on the server or to replace the resource, PUT it's indepotent, and POST isn't, with PUT you can update a resource N times, but if you try with post you will create N resources. PUT can create resources.
+  - PATCH - Applies a partial update to a resource and doesn't create a new resource
+  - DELETE - This method is used to delete the resource on the server
+  - TRACE - Provides a loop back test along the path to the target resource providing a useful debugging mechanism.
+  - OPTIONS - Fetches the list of supported options of resources present on the server.
 
 * What is an HTTP proxy and how does it work?
   - An HTTP proxy it's a service that forwards HTTP connections, for example a user A want's to access a server www.b.com, but for security reasons the user cannot have direct access on internet, so the user's browser will ask for the HTTP proxy to access the website, the webserver from www.b.com will receive a HTTP message from the proxy and will answer as usual, but in the http HEADER from the message will be changed by the HTTP proxy server who will add or change some headers like User-Agent, X-Forwarded-For, used a lot by companies that need to control their users Internet access.
 
 * Describe briefly how HTTPS works.
-  - HTTPS uses the same HTTP protocol but creates a security layer(tunnel) using SSL/TLS, on top of it, this prevents anyone modify or inspect what's happening inside this tunnel and ensure the client it's communicating with the right server. The SSL handshake is established and after that all HTTP responses are send by.  
+  - HTTPS use the same HTTP protocol but creates a security layer(tunnel) using SSL/TLS, on top of it, this prevents anyone modify or inspect what's happening inside this tunnel and ensure the client it's communicating with the right server. The SSL handshake is established and after that all HTTP responses are send by. The SSL uses both types of encryption, symmetrical and assymetrical, first when the key exchange happens, a assymetrical encriptions is put in place to the result of the key exchange be a symmetrical encryption.
 
 * What is SMTP? Give the basic scenario of how a mail message is delivered via SMTP.
   - SMTP ( Simple Mail transport protocol) works in the application layer, and uses a process called "store and forward", working close to a  MTA (Mail Tranfer Agent), this MTA service sends via SMTP a package with the messages, when this message arrives at the destination, the client will use POP3/IMAP to download it.
-
 
 * What is RAID? What is RAID0, RAID1, RAID5, RAID10?
   RAID (Redundant Array of Independent Disks) it' s a data storage virtualization technology that combines multiple physical disks in one logical volume.
   - RAID0 - Striping, the data is striped between 2 or more disks, improving speed but compromising availability.
   - RAID1 - Mirroring, the data is mirrored between 2 or more disks, improving availability (the server could lose N - 1 disks) but compromises the speed (replication time).
-  - RAID5 -  Blocks striped but uses distributed parity, RAID5 uses minimum 3 disks, that stripe data between them, but replicates blocks too, it's a good RAID for databases, in this cenario read operations are good, but write can be slow.
+  - RAID5 -  Blocks striped but uses distributed parity, RAID5 uses minimum 3 disks, that stripe data between them, but replicates blocks too, it's a good RAID for databases, in this scenario read operations are good, but write can be slow.
   - RAID10 - It's a implementation using RAID0 + RAID1, uses 4 disks, striping data between 2 of then and mirroring this data in another 2 disks.
 
 * What is a level 0 backup? What is an incremental backup?
@@ -141,6 +165,7 @@ A collection of Linux sysadmin/devops interview questions. Feel free to contribu
   - dig +trace
   - nslookup
   - whois
+  - host
 
 * What Unix/Linux commands will alter a files ownership, files permissions?
   - chmod, chown, chattr
@@ -191,13 +216,13 @@ A collection of Linux sysadmin/devops interview questions. Feel free to contribu
 * What is the difference between UNIX and Linux.
   - Linux it's a UNIX "clone" using the same POSIX(Portable Operating System Interface) standards, but UNIX it's a brand, has different copyrights and tools.
 
-* What is the difference between Telnet and SSH?
-  - SSH it's encripted and telnet isn't.
+* What is the diference between Telnet and SSH?
+  - SSH it's encrypted and telnet isn't.
   - Telnet can ommit authentication
   - SSH adds overhead to the bandwidth
 
 * Explain the three load averages and what do they indicate. What command can be used to view the load averages?
-  - The three load averages indicate the processor usage a estimate in 1 minute, a estimate in 5 minutes and a 15 minutes.
+  - The three load averages indicate the processor usage estimated in 1 minute, estimated in 5 minutes and 15 minutes.
   - top or uptime
 
 * Can you name a lower-case letter that is not a valid option for GNU ```ls```?
@@ -216,7 +241,7 @@ A collection of Linux sysadmin/devops interview questions. Feel free to contribu
    - tr or translate, it's a command to substitute characters.
 
  * ```cut```
-   - cut is a command for text processing, and extracts portion of a text
+   - cut is a command for text processing and extracts a portion of a text
 
  * ```tac```
   - tac it's a reverse cat, pritting the file bottom to up.
@@ -225,24 +250,24 @@ A collection of Linux sysadmin/devops interview questions. Feel free to contribu
   - curl or cURL is a tool to transfer data from or to a server, using one of the supported protocols. cURL can be called a CLI browser, you can use to authenticate, change the HEADER, and do a lot of stuffs with it.
 
  * ```wget```
-  - wget is a tool for retrieving files using HTTP, HTTPS or FTP.
+  - wget is a tool for retrieving files using HTTP, HTTPS , or FTP.
 
  * ```watch```
   - Watch it's a tool that runs a specified command repeatedly and displays the result on standard output.
 
  * ```head```
-   - It's a command who shows the beginning of a file, the default it's 10 lines
+   - It's a command that shows the first lines of a file, the default it's 10 lines
 
  * ```tail```
-   - It's a command who shows the end of a file, the default it's 10 lines
+   - It's a command that shows the last lines of a file, the default it's 10 lines
 
 * What does an ```&``` after a command do?
-  - Makes the command run in a background sub shell.
+  - Makes the command run in a background sub shell, and becomes a job.
 
 * What does ```& disown``` after a command do?
-  - disown control jobs that are running in the system.
+  - disown control jobs that are running in the system, without any paramenter or ID removes the last job on the job table.
 
-* What is a packet filter and how does it work?
+* What is a packet filter, and how does it work?
   - Packet filter it's the process of passing or blocking packets at a network interface based on source and destination address, port or protocols. The packet filter examines, the header of every packet who passed through and based in the rules, ACCEPT, DROP or REJECT the packet, it's well know as firewall.
 
 * What is Virtual Memory?
@@ -252,35 +277,35 @@ A collection of Linux sysadmin/devops interview questions. Feel free to contribu
   - Swap it's a disk partition used by the Linux when the physical memory is full, if the system needs more memory resources some inactive pages are copied to swap, it was a common way to increase the computer/server memory using the disk.
 
 * What is an A record, an NS record, a PTR record, a CNAME record, an MX record?
-  - A record stands for address, indicates a IP address for a domain
+  - A record stands for address, indicates an IP address for a domain
   - NS stands for Name Server record indicates which DNS server is authoritative for that domain ( Where the actual DNS entries are)
   - CNAME stands for canonical name and servers to make one domain to another domain name.
   - MX stands for mail exchange, it's a list of mail exchange servers used by the domain.
 
 * Are there any other RRs and what are they used for?
   - Yes.
-  - PRT record stands for pointer record  and maps a IPV4 address to a CNAME
+  - PRT record stands for pointer record  and maps an IPV4 address to a CNAME
   - SOA record stands for State of Authority and is easily one of the most important DNS records because stores information like when the domain was last updated.
   - SRV record stands for Service Record, is a record that specifies hostname and port number for a specific service, it can be used for service discovery.
   - TXT record stands for Text Information, used by various purposes, as domain ownership for example.
 
 * What is a Split-Horizon DNS?
-  - It's the hability of the DNS answer a different answer to a query based on the source of the query. A common use it's when the DNS server for internal and external queries.
+  - It's the feature/configuration of the DNS server answer a different resolution to a query based on the source of the query. A common use it's when the DNS server needs to diferentiate internal and external queries, for the same domain.
    We can use views to configure this.
 
 * What is the sticky bit?
-  - It's a permission bit that is set on a file or a directory  that lets only the owner of the file/directory or the root user to delete or rename the file.
+  - It's a permission bit that is set on a file or a directory  that let only the owner of the file/directory or the root user to delete or rename the file.
 
 * What does the immutable bit do to a file?
   - It makes the file immutable, any user can change the state of the file or create hard links.
 
 * What is the difference between hardlinks and symlinks? What happens when you remove the source to a symlink/hardlink?
-  - All files in the linux filesystem are a link to a inode, a hard link is a new link to the same inode (if you remove or rename the old or the new link, the file will be intact, but any change in the data on the inode is reflected in all files that refer to that inode), the file system will only delete the inode if you don't have any link for this inode. Because of that a hardlink only works in files that are in the same file system.
+  - All files in the linux filesystem are a link to a inode, a hard link is a new link to the same inode (if you remove or rename the old or the new link, the file will be intact, but any change in the data on the inode is reflected in all files that refer to that inode), the file system will only delete the inode if you don't have any link for this inode. Because of this characteristic a hardlink only works on files that are in the same file system.
 
-  - A softlink, it's a link that points the link from the inode, so it's a link from a link if the first link change the name or be deleted, the soft link will break, but you can use between differents filesystems.
+  - A softlink, it's a link that points the link from the inode, so it's a link from a link if the first link change the name or be deleted, the soft link will break, but can be used between differents filesystems.
 
 * What is an inode and what fields are stored in an inode?
-  - Each object in the filesystem is represented by a inode that stores all the information about the file, like file type, permissions, owner, group, file size, file access, change and modification time (never birth time), file deletion time, number of links, extended attributes. Each inode has a unique number and you can see all this information using ``` stat filename ``` 
+  - Each object in the filesystem is represented by a inode that stores all the information about the file, like file type, permissions, owner, group, file size, file access, change and modification time (never birth time), file deletion time, number of links, extended attributes. Each inode has a unique number and it can acessed using ``` stat filename ``` 
 
 * How to force/trigger a file system check on next reboot?
   - Create a file named forcefsck in the root folder
@@ -289,19 +314,19 @@ A collection of Linux sysadmin/devops interview questions. Feel free to contribu
   - SNMP stands for simple network monitoring protocol, it's a protocol to monitor devices, works in the application layer, has 3 versions now, they are not compatible between each other, and V3 introduced encryption. Messages are transported via UDP.
 
 * What is a runlevel and how to get the current runlevel? 
-  - Runlevel it's a preset operational system state, to get the current runlevel uses the command runlevel, or `who -r`
+  - Runlevel it's a preset operational system state, so based in this level, the SO starts the corresponding services, or scripts. To get the current runlevel uses the command runlevel, or `who -r`
 
 * What is SSH port forwarding?
   - SSH Port forwarding it's a way to create a tunnel between your machine in a destination using ssh.
 
 * What is the difference between local and remote port forwarding?
-  - Local port forwading creates a tunnel between a local server and a local client, a remote port uses a local server but with internet ip address to connect a internal service that doesn't have access in the internet.
+  - Local port forwarding creates a tunnel between a local server and a local client, a remote port uses a local server but with internet IP address to connect a internal service that doesn't have access in the internet.
 
 * What are the steps to add a user to a system without using useradd/adduser?
   - Edit `/etc/passwd` with the new username, configure the home, and shell
   - Edit `/etc/groups` add this new username to some groups
   - Create the user home folder and set the right permissions
-  - Reset the user password with passwd username
+  - Reset the user password with `passwd username`
 
 * What is MAJOR and MINOR numbers of special files?
   - The MAJOR number will set to the kernel with kind of device it is, and MINOR number will set a special characteristics of the device, example if a machine have 2 disks, the MAJOR number will be the same for both, but the MINOR doesn't.
@@ -309,30 +334,43 @@ A collection of Linux sysadmin/devops interview questions. Feel free to contribu
 * Describe the mknod command and when you'd use it.
   - mknod command creates a new device in `/dev` but actually udev creates automatically each device, if something very terrible happen we can recreate some devices using mknod to fix or make some backup.
 
-* Describe a scenario when you get a "filesystem is full" error, but 'df' shows there is free space.
-  - When a filesystem it's out of inodes. `df -i` will show.
+* Describe a scenario when you get a "filesystem is full" error, but `df` shows there is free space.
+  - When a filesystem it's out of inode, it can happen when you have a huge amount of small files, in a small filesystem. `df -i` will show.
 
 * Describe a scenario when deleting a file, but 'df' not showing the space being freed.
-  - when a processing it's using that file. We can use `lsof` to check it.
+  - when a process it's still appending that file. We can use `lsof` to check it.
 
 * Describe how 'ps' works.
-  - the ps command read files from /proc which the content of this files are generated by the kernel.
+  - the ps command read files from /proc and the content of these files are generated by the kernel.
 
 * What happens to a child process that dies and has no parent process to wait for it and what’s bad about this?
   - creates a zombie process, one zombie process it's not a big problem, but each process uses a little size of ram, and uses a PID that's a finite number of it.
 
-* Explain briefly each one of the process states.
-  - Created or new state, in this moment the process wait the admission to the ready state, by the scheduler
-  - Ready or waiting the process has been loaded into main memory  and is awaiting execution on a CPU
-  - Running the process moves into running state when it's chosen for execution.
-  - Blocked it's when the process cannot carry without an external change in the state or event, example when a process needs a user input.
-  - Terminated it's a state after completing the execution or being explicitly killed, but the process remain as zombie until the parent  process call the wait system call to read its exit status, and finally ending the process lifetime.
+* Explain briefly each one of the process states and all signals
+  - CREATED or NEW STATE, in this moment the process wait the admission to the ready state, by the scheduler
+  - RUNNING/RUNNABLE (R) the process has been loaded into main memory and is awaiting execution by the CPU, or it's using CPU core right now
+  - SLEEPING a sleeping process is a process waiting for a resource to be available, I/O operation to complete for example, or an event to happen. There is two states of SLEEPING process
+    - Interrruptible Sleep (S) - Process that can be terminated before the wake up condition is fulfilled without any consequences.
+    - Uninterruptible Sleep (D) - Process that can't be killed, in the example of I/O operation, the act the process it's in uniterruptible sleep (D) until a the I/O operation to complete and wake up.
+  - STOPPED (T) - A process becomes stopped when it receives the SIGSTOP signal, when stopped the process execution is suspended and only signals it will handle are SIGKILL and SIGCONT
+  - Zombie (Z) it's a state after completing the execution or being explicitly killed, but the process remains as a zombie until the parent process call the wait system call to read its exit status, and finally ending the process lifetime.
+  - Process SIGNALS are one of the ways process communicate among themselves and with the kernel. Exceptionally SIGKILL and SIGSTOP signals cannot be handled or blocked.
+    - SIGTERM - the default signal sent by kill command, Asks the process to terminate voluntarily
+    - SIGKILL - unlike SIGTERM, forces the process to terminate, can't be blocked or handled
+    - SIGSTOP - suspend the process execution, putting in stopped state. In this state, the process will do nothing but accept SIGKILL or SIGCONT.
+    - SIGSTP - almost identical to SIGSTOP, the only difference is it can be blocked or handled, this is the signal sent when you type `<ctrl>+z` in the terminal
+    - SIGCONT - if a process is in stopped state, it will put it back in the RUNNING/RUNNABLE state and resume it execution. If the process is in any other state, it's silently ignored.
+    - SIGINT - generated when the user type `<ctrl>+c` in the terminal, it interrupts the current command processing and wait for user's next command.
+    - SIGQUIT - generated when eht user type `<ctrl>+\` in the terminal, normally it will force the process to produce a core dump and terminate.
+    - SIGALARM - signal used to wake up sleeping process, normally scheduled by alarm system call.
+    - SIGCHLD - sinal send from a child process to its parent process when its state changes.
+    - SIGHUP - the signal indicates the terminal handling the process has been disconnected and/or parent process terminated. To run a process that won't terminate when the terminal disconnects, you can start it using the command `nohup`.
 
 * How to know which process listens on a specific port?
   - `lsof -i :$PORT` or `netstat -lp | grep $port` or `ss -lp | grep $port`
 
 * What is a zombie process and what could be the cause of it?
-  - Each process when ended enter in zombie state, waiting for the parent process call a wait call and read the exit status, if this wait call never be called, this process will end up as a zombie, and we will need to call a SIGCHLD to the parent process to kill all child process.
+  - A zombie process is a process whose execution is completed but it still has an entry in the process table. Zombie process usually occur for child process, as the parent proces still needs to read its child exit status.
 
 * You run a bash script and you want to see its output on your terminal and save it to a file at the same time. How could you do it?
  - Use the tee command
@@ -366,7 +404,7 @@ A collection of Linux sysadmin/devops interview questions. Feel free to contribu
     - socket file
 
 * What is the difference between a process and a thread? And parent and child processes after a fork system call?
-  - A fork it's identical process as the parent but with new PID, it has a own memory share, and runs independently from the parent. A thread it's a lightweight process and usually it's just a CPU state with the process containing the remainings. A threads require less overhead then forking or spawning a new process, because doesn't have a new system virtual memory space and environment.
+  - A fork it's an identical process as the parent but with new PID, it has a own memory share, and runs independently from the parent. A thread it's a lightweight process and usually it's just a CPU state with the process containing the remainings. A threads require less overhead then forking or spawning a new process, because doesn't have a new system virtual memory space and environment.
   - Both child and parent process have different PIDs, neither process access the variables of each other, the child process ctime, uptime, stime, cutime and cstime subrotines are set to 0.
 
 * What is the difference between exec and fork?
@@ -701,6 +739,31 @@ A collection of Linux sysadmin/devops interview questions. Feel free to contribu
 * Why use a Statefulset?
   - Stateful sets different than deployments, have a unique network identifiers, and DNS names inside of the kubernetes network, stable storage, and pod name label,
 deployment and scaling guarantees like deploy and termination order.
+
+* What is PDB (Pod Disruption Budget)?
+  - 
+
+* What is an Operator? Why do we need Operators?
+  - 
+
+* What is the role of the Kubelet, Kube-scheduler, Kube-API server, and Kube-proxy?
+
+* Explain the role of CRD (Custom Resource Definition) in K8?
+
+*  How POD to POD communication works?
+
+* How POD to service communication works?
+
+* What's a CNI?
+
+*  How to troubleshoot if the POD is not getting scheduled?
+
+* How to run a POD on particular node?
+
+* What are the various things can be done to increase the K8 security?
+
+* How to monitor K8 cluster?
+
 
 ####[[⬆]](#toc) <a name='Service Mesh'>Service Mesh Questions:</a>
 
