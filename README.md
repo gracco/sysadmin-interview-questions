@@ -42,7 +42,7 @@ A collection of Linux sysadmin/Devops interview questions. Feel free to contribu
    - I was reading about differences types of encryption, and their usage, when use an asymmetric key or a symmetric key and what are the limits and applications of GCP when need to encrypt backups for example. 
 
 * Talk about your preferred development/administration environment. (OS, Editor, Browsers, Tools, etc.)
-  - SO - Linux
+  - OS - Linux
     editor - Vscode
     Browser- chromium/firefox 
     tools - terraform, vim, git, ZSH, ohmyzsh, Python, ansible, terminator, packer, meld, helm, kubectl, aws tools, kubetail, eksctl
@@ -140,7 +140,7 @@ A collection of Linux sysadmin/Devops interview questions. Feel free to contribu
 
 * Which command will show you free/used memory? Does free memory exist on Linux?
   - free
-  - Sure exists, but the Linux kernel creates file caches in ram, so when we see the output from free command, sometimes can show us that we are without memory but this memory is cached by the SO.
+  - Sure exists, but the Linux kernel creates file caches in ram, so when we see the output from free command, sometimes can show us that we are without memory but this memory is cached by the OS.
 
 * How to search for the string "my konfi is the best" in files of a directory recursively?
   - grep -Rin "my konfi is the best" /folder
@@ -314,7 +314,7 @@ A collection of Linux sysadmin/Devops interview questions. Feel free to contribu
   - SNMP stands for simple network monitoring protocol, it's a protocol to monitor devices, works in the application layer, has 3 versions now, they are not compatible between each other, and V3 introduced encryption. Messages are transported via UDP.
 
 * What is a runlevel and how to get the current runlevel? 
-  - Runlevel it's a preset operational system state, so based in this level, the SO starts the corresponding services, or scripts. To get the current runlevel uses the command runlevel, or `who -r`
+  - Runlevel it's a preset operational system state, so based in this level, the OS starts the corresponding services, or scripts. To get the current runlevel uses the command runlevel, or `who -r`
 
 * What is SSH port forwarding?
   - SSH Port forwarding it's a way to create a tunnel between your machine in a destination using ssh.
@@ -370,22 +370,21 @@ A collection of Linux sysadmin/Devops interview questions. Feel free to contribu
   - `lsof -i :$PORT` or `netstat -lp | grep $port` or `ss -lp | grep $port`
 
 * What is a zombie process and what could be the cause of it?
-  - A zombie process is a process whose execution is completed but it still has an entry in the process table. Zombie process usually occur for child process, as the parent proces still needs to read its child exit status.
+  - A zombie process is a process whose execution is completed but it still has an entry in the process table. Zombie process usually occurs for child process, as the parent process still needs to read its child exit status.
 
 * You run a bash script and you want to see its output on your terminal and save it to a file at the same time. How could you do it?
  - Use the tee command
  - `script | tee file`
 
 * Explain what echo "1" > /proc/sys/net/ipv4/ip_forward does.
- - Disable ipv4 ip_forward function from the kernel, as well the routing function
+ - Disable ipv4 ip_forward function from the kernel, as well the IPV4 routing function
 
 * Describe briefly the steps you need to take in order to create and install a valid certificate for the site https://foo.example.com.
   - Create a key file
   - Uses this key file to create a csr file
   - Send this csr file to a ssl certificate provider
   - Get the crt from the certificate provider with the CA chain and configure into the webserver
-  or
-  - Uses certbot for your specific case.
+  - Or you can use certbot to simplify.
 
 * Can you have several HTTPS virtual hosts sharing the same IP?
   - Yes using virtualhosts, but the client needs to support http/1.1, to use name-based virtual host configuration.
@@ -422,10 +421,10 @@ A collection of Linux sysadmin/Devops interview questions. Feel free to contribu
   - 4 it's minimum recommended by RedHat
 
 * What does the column 'reach' mean in ```ntpq -p``` output?
-  - It's a octal number, that show the last 8 transactions with the ntp server, this number is a FIFO log, so if same packet doesn't arrive (it's UDP), this number can be different based in the order of the checks.
+  - It's a octal number, that show the last 8 transactions with the ntp server, this number is a FIFO log, so if the same packet doesn't arrive (it's UDP), this number can be different based in the order of the checks.
 
 * You need to upgrade kernel at 100-1000 servers, how you would do this?
-  - I would use ansible, but before I will test in some controled group to see if something bad can happen.
+  - I would be using Ansible, but before I would test in a controled group to check if something bad can happen.
 
 * How can you get Host, Channel, ID, LUN of SCSI disk?
   - `cat /proc/scsi/scsi`
@@ -445,14 +444,14 @@ A collection of Linux sysadmin/Devops interview questions. Feel free to contribu
 ####[[⬆]](#toc) <a name='hard'>Hard Linux Questions:</a>
 
 * What is a tunnel and how you can bypass a http proxy?
-  - We can create a ssh tunnel with ssh -R and redirect the http proxy to our server who has access to the internet.
+  - We can create a ssh tunnel with ssh -R and redirect the http proxy to a server that has access to the internet.
 
 * What is the difference between IDS and IPS?
   - IDS detect the problem inspecting the packet header and payload and creates a log.
   - IPS detect the problem inspecting the packet header and payload and drops the packet if finds something problematic, based in some pre defined rules.
 
 * What shortcuts do you use on a regular basis?
-  - `ai package` - `sudo aptitude install package`
+  - `ai package` - `sudo apt install package`
   - `ll` - `ls -lha`
   - `gitcm` - `git commit -m`
   - `gl` - `git pull`
@@ -465,10 +464,10 @@ A collection of Linux sysadmin/Devops interview questions. Feel free to contribu
   - It's a joint project projected by several Linux distributions under the organizational structure of the Linux Foundation to standardize the sofware system structure, including filesystem hierarchy.
 
 * What is an atomic operation?
-  - Atomic operations are program operations that run completly independently from any other process.
+  - Atomic operations are program operations that run until completion independently from any other process.
 
 * Your freshly configured HTTP server is not running after a restart, what can you do?
-  - I would try to see the logs and check what's the problem.
+  - I would try to see the logs and check what's the problem. `jounalctl -xe` `systemctl status httpd`
 
 * What kind of keys are in ~/.ssh/authorized_keys and what it is this file used for?
   - Public keys, they are used to authenticate users in the server.
@@ -489,20 +488,20 @@ A collection of Linux sysadmin/Devops interview questions. Feel free to contribu
   - No, by security proposes
 
 * What's happening when the Linux kernel is starting the OOM killer and how does it choose which process to kill first?
-  - OOM will kill the process that will freed more memory and the least important for the SO.
+  - OOM will kill the process that will free more memory and the least important for the OS.
 
 * Describe the linux boot process with as much detail as possible, starting from when the system is powered on and ending when you get a prompt.
-  - BIOS
-    - BIOS performs startup based in the hardware, and calls the bootloader.
+  - BIOS/UEFI
+    - BIOS performs startup based in the hardware, POST ( Power On Self Test) processs to initiallize the hardware, after complete, and calls the bootloader.
   - bootloader
-    - The bootloader (GRUB2) present options to the user select, and loads the kernel into memory and supplies it with some parameters.
+    - The bootloader (GRUB2) present options to the user select, GRUB supports unix-like OS, and chain-load Windows OS, and loads the kernel into memory and supplies it with some parameters.
   - kernel
     - The kernel will decompress itself and will setup essential hardware and memory paging, and calls start_kernel() function, and it will perform the majority of system setups like device and driver initialization, scheduler, idle process and then starts separately in the user space the init process (pid 1).
   - init
-    -The init it's scripts executed by shell (sysV, runit) or configuration files that are executed by binaries (upstart, systemd), init has specific levels, that are passed as variable at the call, with consists of specifics set of daemons. These will provide various non-operating system services and structures and form the user environment.
-  - User enviroment
+    -The init it's scripts executed by shell (sysV, runit) or configuration files that are executed by binaries (upstart, systemd), init has specific levels, that are passed as variables at the call, with consists of specifics set of daemons. These will provide various non-operating system services and structures and form the user environment.
+  - User environment
     - The typical desktop environment begins with a daemon that calls everything needed.
-  To shudown, it's the inverse, the kernel kills every process, and shut itself down.
+  To shutdown, it's the inverse, the kernel kills every process, and shutdown.
 
 * What's a chroot jail?
   - Chroot jail it's a way to isolate a process and its children from the rest of the system. The idea is that you create a directory tree where you copy or link in all the system files needed for a process to run, usually we use bind to mount some folder inside a chroot.
@@ -517,19 +516,19 @@ A collection of Linux sysadmin/Devops interview questions. Feel free to contribu
   - strace binary, and see what's happening.
 
 * What are cgroups? Can you specify a scenario where you could use them?
-  - Cgroups are a Linux kernel feature that allow us limit the resource use for a group of process(CPU, memory, disk I/O). A scenario to use could be to test a software in a physical machine that has a big hardware, and make this software run a minimum configuration, a very common sofware that uses cgroups it's docker.
+  - Cgroups are a Linux kernel feature that allow limit the resource use for a group of process(CPU, memory, disk I/O). A scenario to use could be to test a software in a physical machine that has a big hardware, and make this software run a minimum configuration, a very common sofware that uses cgroups it's in contairners ( docker, crio).
 
 
 ####[[⬆]](#toc) <a name='expert'>Expert Linux Questions:</a>
 
 * A running process gets ```EAGAIN: Resource temporarily unavailable``` on reading a socket. How can you close this bad socket/file descriptor without killing the process?
-  - using gdb, attach the gdb in the process and close the file descriptor or socket that is with problem, and detach.
+  - using gdb, attach the gdb in the process and close the file descriptor or socket that is problematic, and detach.
 
 
 ####[[⬆]](#toc) <a name='network'>Networking Questions:</a>
 
 * What is localhost and why would ```ping localhost``` fail?
-  - Localhost it's the internal interface in Linux, that some programs can use to talk to each other inside the server. The ping will fail if the lo interface is down, or if we don't resolve localhost in our /etc/hosts file or some firewall rule it's enabled dropping ICMP packets.
+  - Localhost it's the internal interface in Linux, that some programs can use to talk to each other inside the server. The ping will fail if the lo interface is down, or if we don't resolve localhost in our /etc/hosts file or some firewall rule is dropping ICMP packets or blocking lo interface.
 
 * What is the similarity between "ping" & "traceroute" ? How is traceroute able to find the hops.
   - Both use ICMP (Internet control message protocol) packets to archive their proposes, but traceroute sends the packets gradually increasing the TTL value, starting with TTL 1. The first router  receives the packet, decrements the TTL value and drops the packet because the TTL has zero. The router sends an ICMP Time Exceeded message back to the source.
@@ -555,7 +554,8 @@ A collection of Linux sysadmin/Devops interview questions. Feel free to contribu
   - It's a layer 2 protocol that maps IP address to MAC address.
 
 * What is the difference between TCP and UDP?
-  - TCP it's more reliable but slower, because we are sure that our packets will arrive, and UDP it's faster but unreliable because doesn't have confirmation for each package.
+  - TCP ( Transmissions control protocol ) and UDP ( User Datagram Protocol ), both works in the layer 3 of the OSI model, and are different methods to send information across networks, or Internet. TCP is used in scenarios when reliability is important, and is used by the majority of layer 7 protocols, like HTTP, FTP, SMTP. TCP is connection-oriented ( after estabilishes the connection between two devices, maintains until the transfer process finishes), and uses a process called three-way handshake ( SYN, SYN-ACK, ACK).. 
+  - UDP it's a connectionless protocol ( doesn't estabilish a connection before hand) it's much simple and used in situations when data loss is acceptable, because doesn't guarantee all data is successfully transferred.
 
 * What is the purpose of a default gateway?
   - The default gateway it's the way to get in other networks.
@@ -576,7 +576,7 @@ A collection of Linux sysadmin/Devops interview questions. Feel free to contribu
   - source port it's dynamic based on net.ipv4.ip_local_port_range defined between 32768 - 61000, destination port 80 or 443.
 
 * How do you add an IPv6 address to a specific interface?
-  - using ip -6 addr command, or using ifconfig ip inet6, or editing the SO file for network interfaces.
+  - using ip -6 addr command, or using ifconfig ip inet6, or editing the OS file for network interfaces.
 
 * You have added an IPv4 and IPv6 address to interface eth0. A ping to the v4 address is working but a ping to the v6 address gives yout the response ```sendmsg: operation not permitted```. What could be wrong?
   - can be a firewall rule
