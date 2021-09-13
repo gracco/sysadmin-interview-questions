@@ -675,19 +675,26 @@ A collection of Linux sysadmin/Devops interview questions. Feel free to contribu
 
 ####[[⬆]](#toc) <a name='SRE'>SRE Questions:</a>
 * Can you explain what SLA means?
+  - SLA ( Service Level Agreement) defines the level of service expected by a customer from a supplier. 
 
 * What's the “five nines” (“nine fives”, “two and a half nines”) uptime?
+  - FIve nines measure the 99,999% of availability of a service, meaning that service can be only offline 5.26 minutes in a year.
 
 * What would be the good SLI for an API service? How would you use an SLI to meet the SLO?
+  - User latency, error rate are good SLI. Every indicator that measures the user experience it can be a good. Based in the SLI you can change, improve the system or process to follow the SLO.
 
 * What are the SRE Signals?
+  - Latency: Or response time, it's the time taken to serve a request. The increase of latency it's key indicator of degradation in an aplication. 
+  - Traffic: It's the number of requests flowing across your network. Monitoring traffic can help to identify capacity problems and plan ahead future demand.
+  - Errors Rate: Indicates the rate of requests that fail, it's  important to know when your application it's running with errors, and if they are increasing.
+  - Saturation: Measures the usage of a service, and how health is it. CPU, Memory, IO are good metrics, increase of latency it's often a saturation issue.
 
 * True or false, you should always aim to make your service as reliable as it can possibly be?
+  - False, you need to keep your service reliable until it's interesting for the end user, to avoid costs.
 
 * Explain the differences between GKE ingress and Nginx Ingress
-
-* As an SRE, what is your choice?
-
+   - GKE Ingress it a controller that it will spin up a cloud based ( GCP in the case) Loadbalancer that will be responsible to intepretate ingress rules defined in your Kubernetes cluster and expose them to the internet.
+   - NGINX Ingress it a webserver running as a Ingress Controller inside your kubernetes, that it will interpretate the ingress rules defined and expose them to the internet.
 
 ####[[⬆]](#toc) <a name='kubernetes'>Kubernetes and Docker Questions:</a>
 
@@ -702,21 +709,22 @@ A collection of Linux sysadmin/Devops interview questions. Feel free to contribu
   - Docker layer it's a file generated from running some command during a docker build, and be accessed in the docker host `/var/lib/docker/aufs/diff`, they can be used as cache.
     - `docker history [image name]` shows all layers 
   - Because of the usage of AUFS ( Advanced multi-layered unification filesystem ) when docker mounts those layers a diff is applied and layers are reused.
+  - Each command in a dockerfile generates a layer diff, so if you install a software with a command uses the same "subshell" to cleanup caches and other files that are not important for the container lifecycle. Only RUN, COPY and ADD creates layers.
 
 * What features of the Linux kernel enable Docker to work?
   - CGroups
   - Namespaces
 
 * What is the difference between the COPY and ADD commands in a Dockerfile?
-  - ADD and COPY have the same usage but ADD supports tar and remote url handling, so you can download files or untar directly in the image.
+  - ADD and COPY have the same usage but ADD supports tar and remote url handling, so you can download files or untar directly in the image. But the official documentation suggest uses COPY because of the better control of the output.
 
 * Describe the lifecycle of a Pod? What is the phase of a Pod?
-  - Pods are considered ephemeral rather ahtn durable entities, and are created, assigned an unique ID and scheduled to a node, do not self-heal by themselves, if the node goes down, a new pod with new ID is rescheduled.
+  - Pods are considered ephemeral rather than durable entities, and are created, assigned an unique ID and scheduled to a node, do not self-heal by themselves, if the node goes down, a new pod with new ID is rescheduled.
   - Pods have status and a `PodStatus` field which has `phase` field and it can be:
     - Pending: The Pod has been accepted by Kubernetes Cluster, but one or more containers has not been set up. This includes the time that a Pod spends waiting download container images.
     - Running: The Pod has been bound to a node, and all of the containers have been created.
     - Suceeded: All containers in the Pod have terminated in success, and will not be restarted.
-    - Failed: All containers in the Pod have terminated, and at least one conetainer has terminated in failure. That is. the container either exited with non-zero status or was terminated by the system.
+    - Failed: All containers in the Pod have terminated, and at least one conetainer has terminated in failure. That is the container either exited with non-zero status or was terminated by the system.
     - Unknown: For some readon the state of the Pod could not be obtained. This phase typically occurs dut to an error in communicating with the node where the Pod should be running.
 
 * What are three types of handlers to perform a diagnostic by Kubernetes engine?
@@ -741,18 +749,29 @@ A collection of Linux sysadmin/Devops interview questions. Feel free to contribu
 deployment and scaling guarantees like deploy and termination order.
 
 * What is PDB (Pod Disruption Budget)?
-  - 
+  - The PDB limits the number of Pods of a replicated service that are down simultaneously from voluntary disruptions, a node drain for example ( Kubectl drain)
 
 * What is an Operator? Why do we need Operators?
-  - 
+  - Operators are sofware extensions to Kubernetes that make use of custom resources to manage applications and their components. The pattern aims to capture the key aim of a human operator who is managing a service of set of services. Kubernetes controllers concepts lets you extend cluster's behaviour modifying the code of Kubernetes itself. Operators are clients of Kubernetes PI that act as controllers for a custom resource ( extensions of the kubernetes API).
+  - We need operators to manage complex clusters automatically in a logical way, like a mongodb replicaset or a elasticsearch cluster for example.
 
-* What is the role of the Kubelet, Kube-scheduler, Kube-API server, and Kube-proxy?
+* What is the role of the Kubelet, Kube-scheduler, Kube-apiserver, and Kube-proxy, kube-controller-manager?
+  - Kubelet, it's the primary node agent. It can register the node with the API server, ensure the containers described in the PodSpec are running and healthy.
+  - Kube-scheduler is a control plane process which assigns Pods to Nodes and determines which nodes are valid placements for a Pod in the schedule queue according to constaints and available resources. Multiple different schedules can be used in a cluster, and kube-scheduler is the reference implementation.
+  - Kubernetes API Server validates and configures data for the API objects which includes pods, services, replicationcontrollers and others. The api server services REST operations and provides frontend to the cluster shared state.
+  - Kube-proxy it's  the kubernetes network proxy that runs in each node, this reflects services as defined in the Kubernetes API on each nod and can do simple TCP, UDP and SCTP( Service Transmission Control Protocol) fowarding accross a set of backends.
+  - The kubernetes controller manager is a deamon that embeds the core control loop, it's a non terminating loop that regualtes the state of the system. In Kubernetes the control loop that watches the shared state of the cluster through the apiserver and endpoints controller, namespace controller and serviceaccount controller.
+
 
 * Explain the role of CRD (Custom Resource Definition) in K8?
+- CRD or custom resource definitions are extentions of the Kubernetes API.
+
 
 *  How POD to POD communication works?
+- Each pod is assigned a unique IP, every container in a pod shares network namespace, including the IP and network ports. Inside of a pod containers that are part can communicate using localhost. When pods communicate with entities outside the pods, they must coordinate how they use shared network resources.
 
 * How POD to service communication works?
+- Kubernetes service is a abstract way to expose an application running on a set of pods, as a network service. 
 
 * What's a CNI?
 
