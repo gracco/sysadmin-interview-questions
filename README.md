@@ -811,7 +811,10 @@ deployment and scaling guarantees like deploy and termination order.
 
 * Write a ```get_prim``` method in python/perl/bash/pseudo.
 * Find all files which have been accessed within the last 30 days.
-  - find . -atime +30
+  - find . -atime -30
+  - +30 => More than 30 days ago
+    -30 => Less than 30 days ago
+    30  => Exactly 30 days ago
 
 * Explain the following command ```(date ; ps -ef | awk '{print $1}' | sort | uniq | wc -l ) >> Activity.log```
  - date; ps -ef  will get the actual date and all process that the user who runs the command can access
