@@ -786,47 +786,47 @@ deployment and scaling guarantees like deploy and termination order.
 
 ####[[⬆]](#toc) <a name='Observability'>Observability Questions:</a>
 *  What are metrics in the context of observability?
-  - Metrics are numeric measurements that provide information about the state of a system over time. They are often used to monitor environment key indicators like performance, availability and resource utilization, they refer to time-data-series data.
+    - Metrics are numeric measurements that provide information about the state of a system over time. They are often used to monitor environment key indicators like performance, availability and resource utilization, they refer to time-data-series data.
 
 *  How do you differentiate between system-level metrics and application-level metrics?
-  - System-level metrics referenciate to resources usage and the underline infrastructure, like CPU usage, memory, network traffic, disk I/O ( iOPS). Application level metrics are related to the application's performance and behaviours, such as error rate, response time ( latency), request rate and custom application-specific metrics.
+    - System-level metrics referenciate to resources usage and the underline infrastructure, like CPU usage, memory, network traffic, disk I/O ( iOPS). Application level metrics are related to the application's performance and behaviours, such as error rate, response time ( latency), request rate and custom application-specific metrics.
 
 *  What is a time series database (TSDB) and why is it important for metrics? Give an example of one.
-  -  A time series database (TSDB) is optimized for storing and querying time-stamped data points, it's own importance is related to:
+    -  A time series database (TSDB) is optimized for storing and querying time-stamped data points, it's own importance is related to:
     - efficiency as they are designed to handle a large dataset efficiently and allow real-time analysis
     - time-based queries, since they are optimized for time-based queries, it makes easier to analyze data trends patterns and anomalies over time.
     - scalability, they can scale horizontally
     - One example of TSDB is prometheus and influxdb, postgres can be used using the extension TimescaleDB
 
 *  How would you set up alerting based on metrics?
-  - Alerts are defined based on metrics threasholds in a period of time, ie. Average CPU Usage > 80% for the last 5min, then we define a tool to alert us when this threashold is broken.
+    - Alerts are defined based on metrics threasholds in a period of time, ie. Average CPU Usage > 80% for the last 5min, then we define a tool to alert us when this threashold is broken.
 
 *  What role do logs play in observability?
-  - Logs provides detailed records of events that occur within a system. They are crucial to diagnose and troubleshoot issues, monitor system health, gain insights into user behaviour, improve security.
+    - Logs provides detailed records of events that occur within a system. They are crucial to diagnose and troubleshoot issues, monitor system health, gain insights into user behaviour, improve security.
 
 *  What are structured and unstructured logs?
-  - Structured logs are logs that follow a defined format like JSON making easier to be parsed and indexed by tools like ElasticSearch, unstructured are logs in text format that don't follow any standarlized structure.
+    - Structured logs are logs that follow a defined format like JSON making easier to be parsed and indexed by tools like ElasticSearch, unstructured are logs in text format that don't follow any standarlized structure.
 
 *  Can you explain the concept of log aggregation and why it's important?
-  - Log aggregation is a process to collect logs from multiple sources and centralizing them in a single location. This is important to simplify log management, enable search, visibility and correlation of events and compliance since some industries needs to keep logs saved for a long period of time.
+    - Log aggregation is a process to collect logs from multiple sources and centralizing them in a single location. This is important to simplify log management, enable search, visibility and correlation of events and compliance since some industries needs to keep logs saved for a long period of time.
 
 *  How would you implement log rotation and retention?
-  - Log rotation is the process of creating a new log to prevent them to consume excessive disk space, and log retention determines how long to keep them before deletion.There are some common tools and frameworks to help like `logrotate` that can be configured to schedule, compress system logs on Linux. There are some aspects to considerate like disk space, regulatory requirements, and performance impact.
+    - Log rotation is the process of creating a new log to prevent them to consume excessive disk space, and log retention determines how long to keep them before deletion.There are some common tools and frameworks to help like `logrotate` that can be configured to schedule, compress system logs on Linux. There are some aspects to considerate like disk space, regulatory requirements, and performance impact.
 
 *   What are traces and how do they differ from logs and metrics?
-  - Traces represent a journey of a request through a distributed system, they capture information about the individual steps or spans that make up a request, including time taken for each step, the status of the request and any error that occurred. Traces are a valuable tool for understanding the behaviour of distributed systems and diagnosing performance issues.
+    - Traces represent a journey of a request through a distributed system, they capture information about the individual steps or spans that make up a request, including time taken for each step, the status of the request and any error that occurred. Traces are a valuable tool for understanding the behaviour of distributed systems and diagnosing performance issues.
 
 *  How do you implement distributed tracing in a microservices architecture?
-  - First we need to choose a tracing system, like Jaeger or OpenTelemetry, considering factors like scalability, community support, and integration with other used tools, then we need to instrument our services, adding tracing libraries or SDKs, annotate spans on specific operations or functions, and propagate the context to allow traces to be correlated across systems. Basically you will have an agent, backend and visualization tool, in high traffic systems consider sample your data, use HTTP headers to propagate context, and integrate with other tools.
+    - First we need to choose a tracing system, like Jaeger or OpenTelemetry, considering factors like scalability, community support, and integration with other used tools, then we need to instrument our services, adding tracing libraries or SDKs, annotate spans on specific operations or functions, and propagate the context to allow traces to be correlated across systems. Basically you will have an agent, backend and visualization tool, in high traffic systems consider sample your data, use HTTP headers to propagate context, and integrate with other tools.
 
 * What is span in the context of tracing, and what information does it typically contain?
-  - Span represents a single unit of work withing a larger request, it's kind of a building block that when combined with other spans, forms the complete picture of a request journey.A typical span contains: operation name, start time, end time, duration, parent ID, trace id and tags.
+    - Span represents a single unit of work withing a larger request, it's kind of a building block that when combined with other spans, forms the complete picture of a request journey.A typical span contains: operation name, start time, end time, duration, parent ID, trace id and tags.
 
 * How would you use traces to identify and resolve performance bottlenecks?
-  - Since the trace provide a detailed view of a request' s journey through a distributed system, we can analyse the span duration to identify long-running spans, and indentify cascade slowdowns based in the parents-child relationship.
+    - Since the trace provide a detailed view of a request' s journey through a distributed system, we can analyse the span duration to identify long-running spans, and indentify cascade slowdowns based in the parents-child relationship.
 
 *  How do the three pillars of observability (metrics, logs, and traces) work together to provide a comprehensive view of a system's health?
-  - Metrics provides a quantitive data of performance and components in real-time, logs captures a textual description of events that occour within a system, providing context, details and errors and traces captures the journey of a request throught a distributed system, providing view of different components interact, combining them organizations can proactively identify and address issues, improve performance, ensure compliance and gain valuable insights.
+    - Metrics provides a quantitive data of performance and components in real-time, logs captures a textual description of events that occour within a system, providing context, details and errors and traces captures the journey of a request throught a distributed system, providing view of different components interact, combining them organizations can proactively identify and address issues, improve performance, ensure compliance and gain valuable insights.
 
 *  What tools and technologies have you used for implementing observability, and what are their pros and cons?
     - Prometheus for metrics, it's opensource, highly scalable, and integrates well with kubernetes, but requires management and configuration.
@@ -837,7 +837,7 @@ deployment and scaling guarantees like deploy and termination order.
     - Opentelemetry is a opensource observability framework that aims to provide a single standard across all types of observability signals ( trace, logs and metrics) but you will need one or multiple backends to store them. ( Works with eBFP )
 
 *  Can you describe a time when observability helped you solve a critical issue in production?
-  - The everyday of a SRE engineer is look to observability tools to help us to indentify issues, diagnose problems. Some days ago I was working defining Cilium Network Policies ( CNP ) for our workloads, and since my work is very latency sensible, a increase of 5ms is too much for us, we often execute performance tests on new versions to identify regressions in new versions, and after merge a Cilium Network Policy, we saw a huge performance regression as a 5x increase in a specific test, and the culprid with out to think to much was this network policy that it was removed from the version, but we need to make it work since it's a critical security tool for us. During the execution of those tests I could check the metrics on Grafana using prometheus and we could see a huge spike on DNS requests having NXDOMAIN, what make us to tune our DNS servers, set specific configurations to avoid this error, and rollback the CNP, after that the problem was fixed and via metrics and logs proved that it wasn't the policy, but the application.
+    - The everyday of a SRE engineer is look to observability tools to help us to indentify issues, diagnose problems. Some days ago I was working defining Cilium Network Policies ( CNP ) for our workloads, and since my work is very latency sensible, a increase of 5ms is too much for us, we often execute performance tests on new versions to identify regressions in new versions, and after merge a Cilium Network Policy, we saw a huge performance regression as a 5x increase in a specific test, and the culprid with out to think to much was this network policy that it was removed from the version, but we need to make it work since it's a critical security tool for us. During the execution of those tests I could check the metrics on Grafana using prometheus and we could see a huge spike on DNS requests having NXDOMAIN, what make us to tune our DNS servers, set specific configurations to avoid this error, and rollback the CNP, after that the problem was fixed and via metrics and logs proved that it wasn't the policy, but the application.
 
 ####[[⬆]](#toc) <a name='Advanced Observability'>Advanced Observability Questions:</a>
 *  How do you differentiate between counters and gauges in metrics?
