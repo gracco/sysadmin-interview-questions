@@ -18,6 +18,7 @@ A collection of Linux sysadmin/Devops interview questions. Feel free to contribu
   1. [Fun Questions](#fun)
   1. [SRE Questions](#sre)
   1. [Kubernetes Questions](#kubernetes)
+  1. [Observability Questions](#Observability)
   1. [Demo Time](#demo)
   1. [Other Great References](#references)
 
