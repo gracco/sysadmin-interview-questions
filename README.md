@@ -841,25 +841,25 @@ deployment and scaling guarantees like deploy and termination order.
 
 ####[[⬆]](#toc) <a name='Advanced Observability'>Advanced Observability Questions:</a>
 *  How do you differentiate between counters and gauges in metrics?
-  - Count are metrics that can only increase from zero, and gauges are metrics that can fluctuate over time
+    - Count are metrics that can only increase from zero, and gauges are metrics that can fluctuate over time
 
 *  What is histogram and how is it used in observability?
-  - Histogram is a type of metric that collects data points info defined ranges divided by buckets and counts the numbers of observations that fall into each range, it's useful to undestanding the distribution of data such as latency. It can be used to identify outliers, analyze performance and set right alerts thresholds or configure SLOs. The key components of a histogram are buckets ( representing the range of values) and count ( the number of data points that fall within each bucket)
+    - Histogram is a type of metric that collects data points info defined ranges divided by buckets and counts the numbers of observations that fall into each range, it's useful to undestanding the distribution of data such as latency. It can be used to identify outliers, analyze performance and set right alerts thresholds or configure SLOs. The key components of a histogram are buckets ( representing the range of values) and count ( the number of data points that fall within each bucket)
 
-* How would you implement service level indicators (SLIs), service level objectives (SLOs), and service level agreements (SLAs) using metrics?
-  - SLIs are measurable metrics that directly reflect the performance of a service ( Availabity, Latency, Error Rate and Thoughput), SLOs are targets for SLIs, expressed in numberical values ( e.g. 99% of requests should have latency bellow 200ms), SLAs are formal agreements that define the expected level of service and penalities if these targets are not met, implement them involves setting up appropriate metrics and monitoring them againts defined thresholds.
+*  How would you implement service level indicators (SLIs), service level objectives (SLOs), and service level agreements (SLAs) using metrics?
+    - SLIs are measurable metrics that directly reflect the performance of a service ( Availabity, Latency, Error Rate and Thoughput), SLOs are targets for SLIs, expressed in numberical values ( e.g. 99% of requests should have latency bellow 200ms), SLAs are formal agreements that define the expected level of service and penalities if these targets are not met, implement them involves setting up appropriate metrics and monitoring them againts defined thresholds.
 
 * How would you implement custom application metrics and why are they important?
-  - Custom metrics are important because they provide insigths into the application's health beyond system metrics and can be implemented by instrumenting the application code to emit metrics that are specific to the application business logic ( e.g. user login attempts, transactions per second)
+    - Custom metrics are important because they provide insigths into the application's health beyond system metrics and can be implemented by instrumenting the application code to emit metrics that are specific to the application business logic ( e.g. user login attempts, transactions per second)
 
 *  Explain the concept of a service mesh and its role in observability.
-  - A service mesh is a dedicated infrastructure layer for managing service-to-service communication within a microservice architecture and provides all capabilities to collect metrics, logs and traces, for all communications between services, simplifying the implemetation.
+    - A service mesh is a dedicated infrastructure layer for managing service-to-service communication within a microservice architecture and provides all capabilities to collect metrics, logs and traces, for all communications between services, simplifying the implemetation.
 
 *  Describe a scenario where log parsing and enrichment are necessary.
-  - All logs should be parsed and enriched, executing a right parsing is important to extract relevant information, and enrichment to add additional context such user ID, session information,geolocation, to facilitate better analysis.
+    - All logs should be parsed and enriched, executing a right parsing is important to extract relevant information, and enrichment to add additional context such user ID, session information,geolocation, to facilitate better analysis.
 
 * How would you handle sensitive data in logs?
-  - Handling sensitive data in logs envolves:
+    - Handling sensitive data in logs envolves:
     - redacting information and minimize logging
     - encryption on rest and transit
     - implement restrict access to view logs, monitor and audit 
@@ -867,59 +867,59 @@ deployment and scaling guarantees like deploy and termination order.
     - have a incident process in place to deal with it.
 
 *  What is log streaming and how can it be utilized in real-time monitoring?
-  - Log streaming involves continusly proccessing log data as it is generated, using tools like Logstash, kafka, and is real-time processed, allow to be search and used, it can be filtered and enriched, and be used in alert systems, it' s the default way to work with logs on Kubernetes since the work loads are stateless a lot of time.
+    - Log streaming involves continusly proccessing log data as it is generated, using tools like Logstash, kafka, and is real-time processed, allow to be search and used, it can be filtered and enriched, and be used in alert systems, it' s the default way to work with logs on Kubernetes since the work loads are stateless a lot of time.
 
 *  How would you approach log indexing and why is it beneficial?
-  - Log indexing is the process of organizing log data in a way that makes it searchable and queryable, often using tools like ElasticSearch and Logstash, it's beneficial because it allows for fast and efficient searching through a large volume of log data.
+    - Log indexing is the process of organizing log data in a way that makes it searchable and queryable, often using tools like ElasticSearch and Logstash, it's beneficial because it allows for fast and efficient searching through a large volume of log data.
 
 *  What challenges might you face with distributed tracing in a microservices environment?
-    - Span Propagation and context loss, header-based propagation can be fragile, since hearders can be lost during network transfers and complex topologies with multiple hops, context can be lost, leading to incomplete traces.
-    - Performance overhead can be a problem for high-traffic applications
-    - Large datasets and data retention
-    - Security since traces often have sentitive information.
+      - Span Propagation and context loss, header-based propagation can be fragile, since hearders can be lost during network transfers and complex topologies with multiple hops, context can be lost, leading to incomplete traces.
+      - Performance overhead can be a problem for high-traffic applications
+      - Large datasets and data retention
+      - Security since traces often have sentitive information.
 
 * How do you use root cause analysis with traces?
-  - Trace provides a detailed view of a request's journey and can be a way to understand and identify the interaction between dependencies of a system, show anomalies, but often needs to be correlated with metrics and logs.
+    - Trace provides a detailed view of a request's journey and can be a way to understand and identify the interaction between dependencies of a system, show anomalies, but often needs to be correlated with metrics and logs.
 
 *  How would you design an observability solution for a new microservices application?
     - I would be using prom-stack, prometheus for metrics, alertmanager for alers, grafana for visualization, thanos to retain metrics, loki for log aggregation and jaeger for tracing, since I have experience with those tools, but I already used ELK a lot and I am curious about SigNoz.
 
 * What steps would you take if you noticed a sudden spike in error rates from your metrics dashboard?
-  - I would identify the culprid from and check the logs, correlate them with traces to see if there is any dependency that is having issue, based in the changes try to indentify what could be causing the issue and rollback, or fix it.
+    - I would identify the culprid from and check the logs, correlate them with traces to see if there is any dependency that is having issue, based in the changes try to indentify what could be causing the issue and rollback, or fix it.
 
 *  How do you ensure the observability solution scales with the growth of the application?
-  - Choosing right tools, following best practices during configuration, close monitoring them and creating alerts 
+    - Choosing right tools, following best practices during configuration, close monitoring them and creating alerts 
 
 * How would you handle observability in a multi-cloud or hybrid-cloud environment?
-  - Using cloud-agnostic tools, centralizing logs and aggregating data from all environments, keeping in mind the cost of transfer data outside the cloud provider.
+    - Using cloud-agnostic tools, centralizing logs and aggregating data from all environments, keeping in mind the cost of transfer data outside the cloud provider.
 
 *  Describe your approach to monitoring and observability for serverless architectures.
-  - Use already defined platform metrics, and implement custom one is needed, set distribute tracing with the context propagation, structure and centralize the logs, monitor cold-starts time and even-drive, check resources utilizations and set up alerts.
+    - Use already defined platform metrics, and implement custom one is needed, set distribute tracing with the context propagation, structure and centralize the logs, monitor cold-starts time and even-drive, check resources utilizations and set up alerts.
 
 *  What are some common pitfalls when implementing observability, and how can they be avoided?
-  - A common pitfall is collect too much data without a clear plan for analysis, not structure all of your logs and keep them consistent, not monitor your observability tools, and keep aware that when you environment increses they need attention, keep a clear retention plan in place.
+    - A common pitfall is collect too much data without a clear plan for analysis, not structure all of your logs and keep them consistent, not monitor your observability tools, and keep aware that when you environment increses they need attention, keep a clear retention plan in place.
 
 *  How would you integrate observability tools into a CI/CD pipeline?
-  - Observability tools are integrated part of the system and need to follow the same criteria like integrated tests, performance tests. To monitor pipelines, they should emit logs, metrics and trace data, so enable developers to debug them.
+    - Observability tools are integrated part of the system and need to follow the same criteria like integrated tests, performance tests. To monitor pipelines, they should emit logs, metrics and trace data, so enable developers to debug them.
 
 * Why is observability important for DevOps and SRE practices?
-  - Provides insights to ensure reliability, performance and scalability
+    - Provides insights to ensure reliability, performance and scalability
 
 * What is the role of an observability-driven development approach?
-  - ODD involves incorporaing practices throught the software development lifecycle, meaning design applications with buit-in instrumentation for metrics, logs and trace.
+    - ODD involves incorporaing practices throught the software development lifecycle, meaning design applications with buit-in instrumentation for metrics, logs and trace.
 
 *  How can you use anomaly detection in observability?
-  - Anomaly detection is a technique for indentify unusual patterns or behaviours in system metrics, we can use the 3-sigma rule here you need to calculate a data point minus a mean point divided by a standard variation.
+    - Anomaly detection is a technique for indentify unusual patterns or behaviours in system metrics, we can use the 3-sigma rule here you need to calculate a data point minus a mean point divided by a standard variation.
 
 * What is black-box versus white-box monitoring, and how do they relate to observability?
-  - Black box treats the system as a opaque entity, focusing in the external indicators like uptime and response times without knowing its internal workings, an white box is the opposite, where involves understanding and observing the internal states of the system, such specific metrics and application logs.
+    - Black box treats the system as a opaque entity, focusing in the external indicators like uptime and response times without knowing its internal workings, an white box is the opposite, where involves understanding and observing the internal states of the system, such specific metrics and application logs.
 
 * How do you handle high cardinality in metrics and logs?
-  - aggregate metrics and summarize them using percentiles and hitograms
-  - Reduce labels/tags, execute a pre-processing logs
-  - rolloup ( downsampling data) and set retention policies based in your usage
-  - use efficient data structures, if needed enable federation and sharding
-  - configure a architecture using data partitioning, and separate them in storage tiers 
+    - aggregate metrics and summarize them using percentiles and hitograms
+    - Reduce labels/tags, execute a pre-processing logs
+    - rolloup ( downsampling data) and set retention policies based in your usage
+    - use efficient data structures, if needed enable federation and sharding
+    - configure a architecture using data partitioning, and separate them in storage tiers 
 
 ####[[⬆]](#toc) <a name='Service Mesh'>Service Mesh Questions:</a>
 
