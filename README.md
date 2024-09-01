@@ -50,13 +50,13 @@ A collection of Linux sysadmin/Devops interview questions. Feel free to contribu
     environment - i3wm + lxde
 
 * Tell me about the last major Linux project you finished.
-  - My major project in life was an e-commerce creation/migration project using opensource tools like centos, java, springcloud, mongodb, centos, rabbitmq, cassandra, kafka+zookeeper, Azure, percona-mysql, NetflixOSS (as API gateway), nodejs, took 2 years to complete, I joined since the very beginning.
+  - My major project in my carrier was an e-commerce creation/migration project using opensource tools like centos, java, springcloud, mongodb, centos, rabbitmq, cassandra, kafka+zookeeper, Azure, percona-mysql, NetflixOSS (as API gateway), nodejs, took 2 years to complete, I joined since the very beginning.
 
 * Tell me about the biggest mistake you've made in [some recent time period] and how you would do it differently today. What did you learn from this experience?
-  - I hired someone that it's a very good engineer but has very bad social skills. This new person broke completely the team synergy and at the end the team itself. I learned that friendly > technical skills
+  - I hired someone that it's a very good engineer but has very bad social skills. This new person broke completely the team synergy and at the end the team itself. I learned that being friendly is more important than technical skills
 
 * Why we must choose you?
-  - I have a lot of experience, with different types of environments, I worked with all three main cloud providers ( GCP, AWS and Azure), in different size of companies. I have a huge experience scaling services, learning new technologies, automating simple tasks, a cool mind to troubleshoot and solve problems in critical environments. I have been working as tech lead, and product owner for SRE team.
+  - I have a lot of experience, with different types of environments, I worked with all three main cloud providers ( GCP, AWS and Azure), in different size of companies. I have a huge experience scaling services, learning new technologies, automating tasks, a cool mind to troubleshoot and solve problems in critical environments. I have been working as tech lead, and product owner for SRE team.
 
 * What function does DNS play on a network?
   - It's on the core for any environment, responsible to translate IP addresses into names, DNS can also provides a load balancer layer using geolocation, service discovery using SRV entry and a lot of others features, like domain ownership confirmation using TXT entries ( useful to generate SSL certs, for example )
@@ -783,6 +783,142 @@ deployment and scaling guarantees like deploy and termination order.
 
 * How to monitor K8 cluster?
 
+####[[⬆]](#toc) <a name='Observability'>Observability Questions:</a>
+*  What are metrics in the context of observability?
+  - Metrics are numeric measurements that provide information about the state of a system over time. They are often used to monitor environment key indicators like performance, availability and resource utilization, they refer to time-data-series data.
+
+*  How do you differentiate between system-level metrics and application-level metrics?
+  - System-level metrics referenciate to resources usage and the underline infrastructure, like CPU usage, memory, network traffic, disk I/O ( iOPS). Application level metrics are related to the application's performance and behaviours, such as error rate, response time ( latency), request rate and custom application-specific metrics.
+
+*  What is a time series database (TSDB) and why is it important for metrics? Give an example of one.
+  -  A time series database (TSDB) is optimized for storing and querying time-stamped data points, it's own importance is related to:
+    - efficiency as they are designed to handle a large dataset efficiently and allow real-time analysis
+    - time-based queries, since they are optimized for time-based queries, it makes easier to analyze data trends patterns and anomalies over time.
+    - scalability, they can scale horizontally
+    - One example of TSDB is prometheus and influxdb, postgres can be used using the extension TimescaleDB
+
+*  How would you set up alerting based on metrics?
+  - Alerts are defined based on metrics threasholds in a period of time, ie. Average CPU Usage > 80% for the last 5min, then we define a tool to alert us when this threashold is broken.
+
+*  What role do logs play in observability?
+  - Logs provides detailed records of events that occur within a system. They are crucial to diagnose and troubleshoot issues, monitor system health, gain insights into user behaviour, improve security.
+
+*  What are structured and unstructured logs?
+  - Structured logs are logs that follow a defined format like JSON making easier to be parsed and indexed by tools like ElasticSearch, unstructured are logs in text format that don't follow any standarlized structure.
+
+*  Can you explain the concept of log aggregation and why it's important?
+  - Log aggregation is a process to collect logs from multiple sources and centralizing them in a single location. This is important to simplify log management, enable search, visibility and correlation of events and compliance since some industries needs to keep logs saved for a long period of time.
+
+*  How would you implement log rotation and retention?
+  - Log rotation is the process of creating a new log to prevent them to consume excessive disk space, and log retention determines how long to keep them before deletion.There are some common tools and frameworks to help like `logrotate` that can be configured to schedule, compress system logs on Linux. There are some aspects to considerate like disk space, regulatory requirements, and performance impact.
+
+*   What are traces and how do they differ from logs and metrics?
+  - Traces represent a journey of a request through a distributed system, they capture information about the individual steps or spans that make up a request, including time taken for each step, the status of the request and any error that occurred. Traces are a valuable tool for understanding the behaviour of distributed systems and diagnosing performance issues.
+
+*  How do you implement distributed tracing in a microservices architecture?
+  - First we need to choose a tracing system, like Jaeger or OpenTelemetry, considering factors like scalability, community support, and integration with other used tools, then we need to instrument our services, adding tracing libraries or SDKs, annotate spans on specific operations or functions, and propagate the context to allow traces to be correlated across systems. Basically you will have an agent, backend and visualization tool, in high traffic systems consider sample your data, use HTTP headers to propagate context, and integrate with other tools.
+
+* What is span in the context of tracing, and what information does it typically contain?
+  - Span represents a single unit of work withing a larger request, it's kind of a building block that when combined with other spans, forms the complete picture of a request journey.A typical span contains: operation name, start time, end time, duration, parent ID, trace id and tags.
+
+* How would you use traces to identify and resolve performance bottlenecks?
+  - Since the trace provide a detailed view of a request' s journey through a distributed system, we can analyse the span duration to identify long-running spans, and indentify cascade slowdowns based in the parents-child relationship.
+
+*  How do the three pillars of observability (metrics, logs, and traces) work together to provide a comprehensive view of a system's health?
+  - Metrics provides a quantitive data of performance and components in real-time, logs captures a textual description of events that occour within a system, providing context, details and errors and traces captures the journey of a request throught a distributed system, providing view of different components interact, combining them organizations can proactively identify and address issues, improve performance, ensure compliance and gain valuable insights.
+
+*  What tools and technologies have you used for implementing observability, and what are their pros and cons?
+    - Prometheus for metrics, it's opensource, highly scalable, and integrates well with kubernetes, but requires management and configuration.
+    - Grafana for visualization, can be used with mutiple data, has support to plugins, but requires management and configuration in large-scale deployments.
+    - ELK ( Elasticsearch Logstash and kibana ) stack for logs, highly scalable, very powerful but requires closer management. 
+    - Jaeger for distributed tracing opensource, highly scalable.
+    - Newrelic and datadog are very complete paid solutions but can be expensive for large-scale deployments.
+    - Opentelemetry is a opensource observability framework that aims to provide a single standard across all types of observability signals ( trace, logs and metrics) but you will need one or multiple backends to store them. ( Works with eBFP )
+
+*  Can you describe a time when observability helped you solve a critical issue in production?
+  - The everyday of a SRE engineer is look to observability tools to help us to indentify issues, diagnose problems. Some days ago I was working defining Cilium Network Policies ( CNP ) for our workloads, and since my work is very latency sensible, a increase of 5ms is too much for us, we often execute performance tests on new versions to identify regressions in new versions, and after merge a Cilium Network Policy, we saw a huge performance regression as a 5x increase in a specific test, and the culprid with out to think to much was this network policy that it was removed from the version, but we need to make it work since it's a critical security tool for us. During the execution of those tests I could check the metrics on Grafana using prometheus and we could see a huge spike on DNS requests having NXDOMAIN, what make us to tune our DNS servers, set specific configurations to avoid this error, and rollback the CNP, after that the problem was fixed and via metrics and logs proved that it wasn't the policy, but the application.
+
+####[[⬆]](#toc) <a name='Advanced Observability'>Advanced Observability Questions:</a>
+*  How do you differentiate between counters and gauges in metrics?
+  - Count are metrics that can only increase from zero, and gauges are metrics that can fluctuate over time
+
+*  What is histogram and how is it used in observability?
+  - Histogram is a type of metric that collects data points info defined ranges divided by buckets and counts the numbers of observations that fall into each range, it's useful to undestanding the distribution of data such as latency. It can be used to identify outliers, analyze performance and set right alerts thresholds or configure SLOs. The key components of a histogram are buckets ( representing the range of values) and count ( the number of data points that fall within each bucket)
+
+* How would you implement service level indicators (SLIs), service level objectives (SLOs), and service level agreements (SLAs) using metrics?
+  - SLIs are measurable metrics that directly reflect the performance of a service ( Availabity, Latency, Error Rate and Thoughput), SLOs are targets for SLIs, expressed in numberical values ( e.g. 99% of requests should have latency bellow 200ms), SLAs are formal agreements that define the expected level of service and penalities if these targets are not met, implement them involves setting up appropriate metrics and monitoring them againts defined thresholds.
+
+* How would you implement custom application metrics and why are they important?
+  - Custom metrics are important because they provide insigths into the application's health beyond system metrics and can be implemented by instrumenting the application code to emit metrics that are specific to the application business logic ( e.g. user login attempts, transactions per second)
+
+*  Explain the concept of a service mesh and its role in observability.
+  - A service mesh is a dedicated infrastructure layer for managing service-to-service communication within a microservice architecture and provides all capabilities to collect metrics, logs and traces, for all communications between services, simplifying the implemetation.
+
+*  Describe a scenario where log parsing and enrichment are necessary.
+  - All logs should be parsed and enriched, executing a right parsing is important to extract relevant information, and enrichment to add additional context such user ID, session information,geolocation, to facilitate better analysis.
+
+* How would you handle sensitive data in logs?
+  - Handling sensitive data in logs envolves:
+    - redacting information and minimize logging
+    - encryption on rest and transit
+    - implement restrict access to view logs, monitor and audit 
+    - stabilish data retention policies for sentitive logs
+    - have a incident process in place to deal with it.
+
+*  What is log streaming and how can it be utilized in real-time monitoring?
+  - Log streaming involves continusly proccessing log data as it is generated, using tools like Logstash, kafka, and is real-time processed, allow to be search and used, it can be filtered and enriched, and be used in alert systems, it' s the default way to work with logs on Kubernetes since the work loads are stateless a lot of time.
+
+*  How would you approach log indexing and why is it beneficial?
+  - Log indexing is the process of organizing log data in a way that makes it searchable and queryable, often using tools like ElasticSearch and Logstash, it's beneficial because it allows for fast and efficient searching through a large volume of log data.
+
+*  What challenges might you face with distributed tracing in a microservices environment?
+    - Span Propagation and context loss, header-based propagation can be fragile, since hearders can be lost during network transfers and complex topologies with multiple hops, context can be lost, leading to incomplete traces.
+    - Performance overhead can be a problem for high-traffic applications
+    - Large datasets and data retention
+    - Security since traces often have sentitive information.
+
+* How do you use root cause analysis with traces?
+  - Trace provides a detailed view of a request's journey and can be a way to understand and identify the interaction between dependencies of a system, show anomalies, but often needs to be correlated with metrics and logs.
+
+*  How would you design an observability solution for a new microservices application?
+    - I would be using prom-stack, prometheus for metrics, alertmanager for alers, grafana for visualization, thanos to retain metrics, loki for log aggregation and jaeger for tracing, since I have experience with those tools, but I already used ELK a lot and I am curious about SigNoz.
+
+* What steps would you take if you noticed a sudden spike in error rates from your metrics dashboard?
+  - I would identify the culprid from and check the logs, correlate them with traces to see if there is any dependency that is having issue, based in the changes try to indentify what could be causing the issue and rollback, or fix it.
+
+*  How do you ensure the observability solution scales with the growth of the application?
+  - Choosing right tools, following best practices during configuration, close monitoring them and creating alerts 
+
+* How would you handle observability in a multi-cloud or hybrid-cloud environment?
+  - Using cloud-agnostic tools, centralizing logs and aggregating data from all environments, keeping in mind the cost of transfer data outside the cloud provider.
+
+*  Describe your approach to monitoring and observability for serverless architectures.
+  - Use already defined platform metrics, and implement custom one is needed, set distribute tracing with the context propagation, structure and centralize the logs, monitor cold-starts time and even-drive, check resources utilizations and set up alerts.
+
+*  What are some common pitfalls when implementing observability, and how can they be avoided?
+  - A common pitfall is collect too much data without a clear plan for analysis, not structure all of your logs and keep them consistent, not monitor your observability tools, and keep aware that when you environment increses they need attention, keep a clear retention plan in place.
+
+*  How would you integrate observability tools into a CI/CD pipeline?
+  - Observability tools are integrated part of the system and need to follow the same criteria like integrated tests, performance tests. To monitor pipelines, they should emit logs, metrics and trace data, so enable developers to debug them.
+
+* Why is observability important for DevOps and SRE practices?
+  - Provides insights to ensure reliability, performance and scalability
+
+* What is the role of an observability-driven development approach?
+  - ODD involves incorporaing practices throught the software development lifecycle, meaning design applications with buit-in instrumentation for metrics, logs and trace.
+
+*  How can you use anomaly detection in observability?
+  - Anomaly detection is a technique for indentify unusual patterns or behaviours in system metrics, we can use the 3-sigma rule here you need to calculate a data point minus a mean point divided by a standard variation.
+
+* What is black-box versus white-box monitoring, and how do they relate to observability?
+  - Black box treats the system as a opaque entity, focusing in the external indicators like uptime and response times without knowing its internal workings, an white box is the opposite, where involves understanding and observing the internal states of the system, such specific metrics and application logs.
+
+* How do you handle high cardinality in metrics and logs?
+  - aggregate metrics and summarize them using percentiles and hitograms
+  - Reduce labels/tags, execute a pre-processing logs
+  - rolloup ( downsampling data) and set retention policies based in your usage
+  - use efficient data structures, if needed enable federation and sharding
+  - configure a architecture using data partitioning, and separate them in storage tiers 
 
 ####[[⬆]](#toc) <a name='Service Mesh'>Service Mesh Questions:</a>
 
